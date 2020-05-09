@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人中心 - 用户管理系统</title>
+
+    <link href="../../static/Users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/Users/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/Users/css/styles.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="../../static/Users/js/html5shiv.js"></script>
+    <script src="../../static/Users/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+
+    </div>
+</nav>
+
+
+<section class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>我的账户：{{ session_users_name }}</h2>
+        </div>
+        <div class="panel-body" style="text-align: center">
+            {% if house_infos != None %}
+                <div class="row">
+                    <img src="{{ house_infos[7] }}" alt="图片" height="155px">
+                    <h2>标题:{{ house_infos[1] }}</h2>
+                    <h3>小区:{{ house_infos[2] }}</h3>
+                    <h3>地址:{{ house_infos[3] }}</h3>
+                    <h3>价格:{{ house_infos[4] }}</h3>
+                    <h3>描述:{{ house_infos[5] }}</h3>
+                    <h3>销售状态:{{ house_infos[6] }}</h3>
+                    <h3>房主:{{ house_infos[8] }}</h3>
+                    <button type="button" class="btn btn-success" onclick="return AjaxSend()">预订</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+</body>
+<script src="../../static/Users/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/Users/js/bootstrap.min.js"></script>
+<script src=".../../static/Users/js/chart.min.js"></script>
+<script src="../../static/Users/js/chart-data.js"></script>
+<script src="../../static/Users/js/easypiechart.js"></script>
+<script src="../../static/Users/js/easypiechart-data.js"></script>
+<script src="../../static/Users/js/bootstrap-datepicker.js"></script>
+
+
+<script>
+    function AjaxSend() {
+        $.ajax({
+            url: '/house_show_detail/book/?nid={{ house_infos[0] }}',
+            type: "POST",
+            data: {
+                "a": "a"
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (recv) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                console.log(recv)
+                // 登入成功
+                recv = JSON.parse(recv)
+                if (recv["status"] == "true") {
+                    alert("成功，信息已更新")
+                    location.reload();
+                }
+                ;
+                if (recv["status"] == "false") {
+                    alert("异常，请重试，请登入");
+                    location.reload();
+                }
+                ;
+            }
+        })
+    }
+</script>
+</html>

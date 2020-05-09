@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div style="height: 100px;">
+
+    </div>
+    <section class="form-inline" style="border: 1px solid black;text-align: center">
+        <span>是否启用：</span>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="checkbox_one"  value="1">
+            </label>
+        </div>
+        <span>【打开视频】</span>
+        <div class="form-group">
+            <label class="sr-only" for="input_one"></label>
+            <input type="test" class="form-control" id="input_one" name="input_one"  placeholder="">
+        </div>
+        <button type="submit" class="btn btn-default" onclick="AjaxSend('#checkbox_one','#input_one');">发送</button>
+    </section>
+    <br>
+    <section class="form-inline" style="border: 1px solid black;text-align: center">
+        <span>是否启用：</span>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="checkbox_two"  value="2">
+            </label>
+        </div>
+        <span>【采集数据】</span>
+        <div class="form-group">
+            <label class="sr-only" for="input_two"></label>
+            <input type="test" class="form-control" id="input_two" name="input_two">
+        </div>
+        <button type="submit" class="btn btn-default" onclick="AjaxSend('#checkbox_two','#input_two');">发送</button>
+    </section>
+    <br>
+    <section class="form-inline" style="border: 1px solid black;text-align: center">
+        <span>是否启用：</span>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="checkbox_three" value="3">
+            </label>
+        </div>
+        <span>【转台控制】</span>
+        <div class="form-group">
+            <label class="sr-only" for="input_three"></label>
+            <input type="test" class="form-control" id="input_three" placeholder="">
+        </div>
+        <button type="submit" class="btn btn-default" onclick="AjaxSend('#checkbox_three','#input_three');">发送</button>
+    </section>
+
+</div>
+
+<script>
+
+    function AjaxSend(id, name_value) {
+        console.log($(id).prop("checked"));
+        if ($(id).prop("checked") == false) {
+            alert("请勾选使用功能");
+        } else {
+            console.log($(id).val())
+            $.ajax({
+                url: '/',
+                type: "POST",
+                data: {
+                    "function":$(id).val(),
+                    "id_value":$(name_value).val(),
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (data) {
+                    alert("发送成功")
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

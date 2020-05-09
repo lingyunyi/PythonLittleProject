@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人中心 - 用户管理系统</title>
+
+    <link href="../../static/Users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/Users/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/Users/css/styles.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="../../static/Users/js/html5shiv.js"></script>
+    <script src="../../static/Users/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <a href="/my_center/users_infomation/"><button type="button" class="btn btn-default navbar-btn">个人中心</button></a>
+        <a href="/houser_center/houser_infomation/"><button type="button" class="btn btn-default navbar-btn">房东中心</button></a>
+    </div>
+</nav>
+
+
+<section class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form-group" action="/" method="post">
+                <input type="text" class="form-control" placeholder="可以根据地区查询,输入完,回车" id="search" name="search">
+            </form>
+        </div>
+        <div class="panel-body">
+            {% if house_infos != None %}
+                {% for i in house_infos %}
+                    <a href="/house_show_detail/?nid={{ i[0] }}">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <img src="{{ i[7] }}" alt="图片" height="155px">
+                            </div>
+                            <div class="col-sm-6 col-md-8">
+                                <h2>标题:{{ i[1] }}</h2>
+                                <h3>小区:{{ i[2] }}</h3>
+                                <h3>地址:{{ i[3] }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+</body>
+<script src="../../static/Users/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/Users/js/bootstrap.min.js"></script>
+<script src=".../../static/Users/js/chart.min.js"></script>
+<script src="../../static/Users/js/chart-data.js"></script>
+<script src="../../static/Users/js/easypiechart.js"></script>
+<script src="../../static/Users/js/easypiechart-data.js"></script>
+<script src="../../static/Users/js/bootstrap-datepicker.js"></script>
+</html>
