@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>欢迎登入</title>
+    <link rel="stylesheet" href="../static/Public/css/all_login.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .shadow {
+            /*绝对定位*/
+            position: fixed;
+            /*沾满全屏*/
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            /*黑色背景*/
+            background-color: black;
+            /*透明度*/
+            opacity: 0.3;
+            /*越大越展示在用户前面*/
+            z-index: 999;
+        }
+
+        .model {
+            z-index: 1000;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            height: 300px;
+            width: 400px;
+            margin-left: -200px;
+            margin-top: -150px;
+            background-color: white;
+        }
+
+        .shadow2 {
+            /*绝对定位*/
+            position: fixed;
+            /*沾满全屏*/
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            /*黑色背景*/
+            background-color: black;
+            /*透明度*/
+            opacity: 0.3;
+            /*越大越展示在用户前面*/
+            z-index: 999;
+        }
+
+        .model2 {
+            z-index: 1000;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            height: 300px;
+            width: 400px;
+            margin-left: -200px;
+            margin-top: -150px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="shadow hide" id="login_shadow"></div>
+
+<div class="model hide" id="login_model">
+    <!--    from 表单提交页面必定刷新，请求必定再次请求一次，这样可以在viws函数中，不使用重定向也可以，直接在view再次render-->
+    <!-- 若想不刷新，保留对话框的形式，只能使用ajax偷偷提交数据，偷偷改变数据  -->
+
+    <p>
+        <img style="margin: 0 auto;height: 50px;width: 200px;" src="" alt="" id="login_captcha" onclick="Change();">
+    </p>
+    <input type="text" id="login_check_num" class="lowin-input">
+    <br>
+    <button class="lowin-btn login-btn"
+            onclick="return AjaxSend('login_form','login','#login_account','#login_password');">
+        确定
+    </button>
+    <button class="lowin-btn login-btn" onclick="login_noshowModal();">
+        取消
+    </button>
+</div>
+<div class="shadow hide" id="register_shadow"></div>
+<div class="model hide" id="register_model">
+    <!--    from 表单提交页面必定刷新，请求必定再次请求一次，这样可以在viws函数中，不使用重定向也可以，直接在view再次render-->
+    <!-- 若想不刷新，保留对话框的形式，只能使用ajax偷偷提交数据，偷偷改变数据  -->
+
+    <p>
+        <img style="margin: 0 auto;height: 50px;width: 200px;" src="" alt="" id="register_captcha" onclick="Change();">
+    </p>
+    <input type="text" id="register_check_num" class="lowin-input">
+    <br>
+    <button class="lowin-btn login-btn"
+            onclick="return AjaxSend('register_form','register','#register_account','#register_password');">
+        确定
+    </button>
+    <button class="lowin-btn login-btn" onclick="register_noshowModal();">
+        取消
+    </button>
+</div>
+<div class="lowin">
+    <div class="lowin-brand">
+        <img src="../static/Public/img/login.jpg" alt="logo">
+    </div>
+    <div class="lowin-wrapper">
+        <!--        登入模块-->
+        <div class="lowin-box lowin-login">
+            <div class="lowin-box-inner">
+                <form id="login_form">
+                    <!--                    登入表单开始-->
+                    <p>登入账号</p>
+                    <div class="lowin-group">
+                        <label>账号<a href="#" class="login-back-link">重新登入</a></label>
+                        <input type="text" id="login_account" class="lowin-input">
+                    </div>
+                    <div class="lowin-group password-group">
+                        <label>密码<a href="#" class="forgot-link">忘记密码</a></label>
+                        <input type="text" id="login_password" class="lowin-input">
+                    </div>
+                    <button class="lowin-btn login-btn" onclick="return AjaxSend('login_form','login','#login_account','#login_password');">
+                        登入
+                    </button>
+                    <div class="text-foot">
+                        <a href="" class="register-link">注册</a>
+                    </div>
+                    <!--                    登入表单结束-->
+                </form>
+            </div>
+        </div>
+        <!--        登入模块结束-->
+        <!--        注册模块开始-->
+        <div class="lowin-box lowin-register">
+            <div class="lowin-box-inner">
+                <section method="post" id="register_form">
+                    <!--                    注册表单开始-->
+                    <p>注册账号</p>
+                    <div class="lowin-group">
+                        <label>账户ID</label>
+                        <input type="text" id="register_account" class="lowin-input">
+                    </div>
+                    <div class="lowin-group">
+                        <label>密码</label>
+                        <input type="text" id="register_password" class="lowin-input">
+                    </div>
+                    <!-- Cmd返回一个True 或者 False 如果返回False 那么就会出现 取消后续的默认事件 -->
+                    <button class="lowin-btn" onclick="return AjaxSend('register_form','register','#register_account','#register_password');">
+                        注册
+                    </button>
+
+                    <div class="text-foot">
+                        <a href="" class="login-link">登入</a>
+                    </div>
+                    <!--                    注册表单结束-->
+                </section>
+            </div>
+        </div>
+        <!--        注册模块结束-->
+    </div>
+    <!--    页脚模块开始-->
+    <footer class="lowin-footer">
+        @社会制造流行趋势计算系统
+    </footer>
+    <!--    页脚模块结束-->
+</div>
+<!--引用js模块-->
+<script src="../static/Public/js/all_login.js"></script>
+<!--自定义js脚本-->
+<script>
+    //    调用类中的init函数
+    Auth.init({
+        login_url: '/login/',
+        forgot_url: '#'
+    });
+</script>
+<script>
+
+    window.onload = function () {
+        console.log()
+    };
+
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("所有文本框不能为空"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+    function AjaxSend(form_id, type, is_account, is_password) {
+        var res = Cmd(form_id)
+        if (res == true) {
+            console.log(res)
+            console.log(type)
+            if (type == "register") {
+                $.ajax({
+                    url: '/login/',
+                    type: "POST",
+                    data: {
+                        "func_type":type,
+                        "users_account": $(is_account).val(),
+                        "users_passwd": $(is_password).val(),
+                    },
+                    // 设置超时的时间XXs
+                    timeout: 30000,
+                    success: function (recv) {
+                        //当服务端处理完成后，返回数据时，该函数自动调用
+                        // data代表服务器给我们返回的值
+                        // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                        console.log(recv)
+                        // 登入成功
+                        recv = JSON.parse(recv)
+                        if (recv["status"] == "true") {
+                            alert("注册成功，请登入")
+                            location.reload();
+                        };
+                        if(recv["status"] == "false") {
+                            alert("注册异常，请重试");
+                            location.reload();
+                        };
+                    },
+                    //调用出错执行的函数
+                    error: function () {
+                        //请求出错处理
+                        console.log("error");
+                    }
+                })
+            }
+            if (type == "login") {
+                $.ajax({
+                    url: '/login/',
+                    type: "POST",
+                    data: {
+                        "func_type":type,
+                        "users_account": $(is_account).val(),
+                        "users_passwd": $(is_password).val(),
+                    },
+                    // 设置超时的时间XXs
+                    timeout: 30000,
+                    success: function (recv) {
+                        //当服务端处理完成后，返回数据时，该函数自动调用
+                        // data代表服务器给我们返回的值
+                        // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                        console.log(recv)
+                        // 登入成功
+                        recv = JSON.parse(recv)
+                        if (recv["status"] == "true") {
+                            alert("登入成功")
+                            location.href = "/clothing_recommend/"
+                        };
+                        if(recv["status"] == "false") {
+                            alert("账号密码错误，请重试");
+                            location.reload();
+                        };
+                    },
+                    //调用出错执行的函数
+                    error: function () {
+                        //请求出错处理
+                        console.log("error");
+                    }
+                })
+            }
+        }
+        return false
+    }
+
+
+</script>
+</body>
+</html>
