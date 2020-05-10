@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>二维码 - 个人信息库</title>
+    <link href="../static/Users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/Users/css/datepicker3.css" rel="stylesheet">
+    <link href="../static/Users/css/styles.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../static/Users/js/html5shiv.js"></script>
+    <script src="../static/Users/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">我的个人信息</div>
+        <div class="panel-body">
+            <div class="list-group">
+                <button type="button" class="list-group-item" style="width: 100%;">姓名：{{ select_my_info.1 }}</button>
+                <button type="button" class="list-group-item" style="width: 100%;">性别：{{ select_my_info.2 }}</button>
+                <button type="button" class="list-group-item" style="width: 100%;">学校：{{ select_my_info.3 }}</button>
+                <button type="button" class="list-group-item" style="width: 100%;">班级：{{ select_my_info.4 }}</button>
+                <button type="button" class="list-group-item" style="width: 100%;">电话：{{ select_my_info.5 }}</button>
+                <button type="button" class="list-group-item" style="width: 100%;">宿舍：{{ select_my_info.6 }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../static/Users/js/jquery-1.11.1.min.js"></script>
+<script src="../static/Users/js/bootstrap.min.js"></script>
+<script src="../static/Users/js/chart.min.js"></script>
+<script src="../static/Users/js/chart-data.js"></script>
+<script src="../static/Users/js/easypiechart.js"></script>
+<script src="../static/Users/js/easypiechart-data.js"></script>
+<script src="../static/Users/js/bootstrap-datepicker.js"></script>
+</html>
