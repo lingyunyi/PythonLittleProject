@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人中心 - 用户管理系统</title>
+
+    <link href="../../static/Users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/Users/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/Users/css/styles.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="../../static/Users/js/html5shiv.js"></script>
+    <script src="../../static/Users/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user"></span> {{ None }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/public_api/logout/"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/storehouse_manager/"><span class="glyphicon glyphicon-tree-deciduous"></span>数据仓库管理</a></li>
+        <li class="active"><a href="/equipment_manager/add_one_equipment/"><span class="glyphicon glyphicon-tree-deciduous"></span>新增设备信息</a></li>
+        <li><a href="/excel_manager/"><span class="glyphicon glyphicon-tree-deciduous"></span>Excel系统管理</a></li>
+        <li><a href="/DB_backups/"><span class="glyphicon glyphicon-tree-deciduous"></span>数据仓库备份</a></li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">新增设备信息</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">新增设备信息</h1>
+        </div>
+    </div><!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">新增设备信息
+                </div>
+                <div class="panel-body">
+                    <section id="eq_add_form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">设备编码</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">仓库名称</label>
+                            <select class="form-control" name="send">
+                                {% for i in select_storehouse_list %}
+                                    <option value="{{ i.0 }}">{{ i.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">所属分组</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">设备名称</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">设备类型</label>
+                            <select class="form-control" name="send">
+                                <option value="接入交换机">接入交换机</option>
+                                <option value="汇聚交换机">汇聚交换机</option>
+                                <option value="核心交换机">核心交换机</option>
+                                <option value="安全设备">安全设备</option>
+                                <option value="安全设备">集线器</option>
+                                <option value="安全设备">路由器</option>
+                                <option value="安全设备">电脑主机</option>
+                                <option value="安全设备">显示器</option>
+                                <option value="安全设备">耗材</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">型号规格</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">增加方式</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">制造工厂</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">出厂日期</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">使用状态</label>
+                            <select class="form-control" name="send">
+                                <option value="在线">在线</option>
+                                <option value="库存">库存</option>.
+                                <option value="库存">损坏</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">使用部门</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">存放地点</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">保管人员</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">单价</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">启用时间</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">使用年限</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">详细配置</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">备注</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">维修间隔月</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">维修时间</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="send"  autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-default" onclick="return AjaxSend('eq_add_form');">提交</button>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->
+
+</div><!--/.main-->
+<script src="../../static/Users/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/Users/js/bootstrap.min.js"></script>
+<script src="../../static/Users/js/easypiechart.js"></script>
+<script src="../../static/Users/js/easypiechart-data.js"></script>
+<script src="../../static/Users/js/bootstrap-datepicker.js"></script>
+<script>
+
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("所有文本框不能为空"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+    function AjaxSend(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            var cover = new FormData();
+            $.each($("[name='send']"), function (key, value) {
+                console.log(key, $(value).val());
+                cover.append(key, $(value).val())
+            });
+            $.ajax({
+                url: '/API/storehouse_manager/equipment_manager_insert/',
+                type: "POST",
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: cover,
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (recv) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    recv = JSON.parse(recv)
+                    if (recv["status"] == "true") {
+                        $("input").attr("value","");
+                        alert("添加成功，请移步去仓库内查看");
+                        location.reload();
+                    }
+                    ;
+                    if (recv["status"] == "false") {
+                        $("input").attr("value","");
+                        alert("异常，请重试，或将信息补充完整");
+                        location.reload();
+                    }
+                    ;
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+
+
+</script>
+</body>
+
+</html>

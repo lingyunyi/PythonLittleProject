@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人中心 - 用户管理系统</title>
+
+    <link href="../../static/Users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/Users/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/Users/css/styles.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="../../static/Users/js/html5shiv.js"></script>
+    <script src="../../static/Users/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user"></span> {{ None }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/public_api/logout/"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/storehouse_manager/"><span class="glyphicon glyphicon-tree-deciduous"></span>数据仓库管理</a></li>
+        <li><a href="/equipment_manager/add_one_equipment/"><span class="glyphicon glyphicon-tree-deciduous"></span>新增设备信息</a></li>
+        <li class="active"><a href="/excel_manager/"><span class="glyphicon glyphicon-tree-deciduous"></span>Excel系统管理</a></li>
+        <li><a href="/DB_backups/"><span class="glyphicon glyphicon-tree-deciduous"></span>数据仓库备份</a></li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">Excel系统管理</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Excel系统管理</h1>
+        </div>
+    </div><!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="/download_files/?download_files=equipment_manager_temp.xlsx">
+                        <button type="submit" class="btn btn-default" onclick="">下载EXCEL模板</button>
+                    </a>
+                    <button type="submit" class="btn btn-default" onclick="return AjaxSend_ouput();">导出仓库EXCEL</button>
+
+                    <button type="submit" class="btn btn-default" onclick="" disabled="disabled" id="output_but">
+                        <a href="" id="download_storehouse">下载导出文件</a>
+                        <span id="mesg">未导出</span>
+                    </button>
+
+
+                </div>
+                <div class="panel-body">
+                    <section>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">选择导入仓库名称</label>
+                            <select class="form-control" name="send" id="storehouse_id">
+                                {% for i in select_storehouse_list %}
+                                    <option value="{{ i.0 }}">{{ i.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" id="file_content">
+                            <p class="help-block">只允许导入xlsx的Excel文件类型</p>
+                        </div>
+                        <button type="submit" class="btn btn-default" onclick="return AjaxSend_input();">确定导入</button>
+                    </section>
+
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+<script src="../../static/Users/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/Users/js/bootstrap.min.js"></script>
+<script src=".../../static/Users/js/chart.min.js"></script>
+<script src="../../static/Users/js/chart-data.js"></script>
+<script src="../../static/Users/js/easypiechart.js"></script>
+<script src="../../static/Users/js/easypiechart-data.js"></script>
+<script src="../../static/Users/js/bootstrap-datepicker.js"></script>
+<script>
+    window.onload = function () {
+        $("#output_but").attr("disabled", "disabled")
+    }
+
+
+    function AjaxSend_ouput() {
+        $("#mesg").text("正在导出中......")
+        $.ajax({
+            url: '/excel_manager/output_excel/',
+            type: "GET",
+            data: {
+                "a": "a"
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (recv) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                recv = JSON.parse(recv)
+                if (recv["status"] == "true") {
+                    alert("导出成功请下载文件");
+                    $("#mesg").text("导出成功请下载文件")
+                    $("#download_storehouse").attr("href", "/download_files_all/?download_files=" + recv["excel_path"])
+                    $("#output_but").removeAttr("disabled")
+                }
+                ;
+                if (recv["status"] == "false") {
+                    alert("导出失败，请重试......");
+
+                    $("#mesg").text("导出失败，请重试......")
+                }
+                ;
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    }
+
+    function AjaxSend_input() {
+        var storehouse_id = $("#storehouse_id").val();
+        if (storehouse_id == null) {
+            return false
+        }
+        var cover = new FormData();
+        var fileObj = document.getElementById('file_content').files[0];;
+        cover.append('file_content', fileObj)
+        cover.append("storehouse_id", storehouse_id)
+        $.ajax({
+            cache: false,
+            processData: false,
+            contentType: false,
+            url: '/excel_manager/input_excel/',
+            type: "POST",
+            data: cover,
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (recv) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                recv = JSON.parse(recv)
+                if (recv["status"] == "true") {
+                    alert("导入成功，请移步至仓库管理中查看");
+                    location.reload()
+                }
+                ;
+                if (recv["status"] == "false") {
+                    alert("导入失败，请重试......");
+                    location.reload()
+                }
+                ;
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    }
+</script>
+</body>
+
+</html>
