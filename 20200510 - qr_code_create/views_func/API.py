@@ -29,3 +29,15 @@ def show_my_info(request):
         except BaseException as e:
             pass
     return HttpResponse(404)
+
+
+def delete_info(request):
+    ret  = {"status":"false"}
+    if request.method == "POST":
+        nid = request.POST.get("nid",None)
+        sql = '''DELETE FROM school_apartment WHERE id = %s  '''
+        delete_result = sql_manager_tools.excute(sql,[nid])
+        if delete_result == True:
+            ret["status"] = "true"
+            return HttpResponse(json.dumps(ret))
+    return HttpResponse(json.dumps(ret))

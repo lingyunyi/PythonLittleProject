@@ -29,5 +29,6 @@ urlpatterns = [
     path("infomation_db/",main.infomation_db),
     # 扫描展示的个人信息
     path("show_my_info/",API.show_my_info),
+    path('infomation_db/delete/',API.delete_info)
 
 ]

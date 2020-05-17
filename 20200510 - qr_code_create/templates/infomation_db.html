@@ -13,8 +13,52 @@
     <script src="../static/Users/js/html5shiv.js"></script>
     <script src="../static/Users/js/respond.min.js"></script>
     <![endif]-->
+        <style type="text/css">
+        .hide {
+            display: none;
+        }
+
+        .shadow {
+            /*绝对定位*/
+            position: fixed;
+            /*沾满全屏*/
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            /*黑色背景*/
+            background-color: black;
+            /*透明度*/
+            opacity: 0.3;
+            /*越大越展示在用户前面*/
+            z-index: 999;
+        }
+
+        .model {
+            z-index: 1000;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            height: 200px;
+            width: 200px;
+            margin-left: -100px;
+            margin-top: -100px;
+            background-color: white;
+        }
+    </style>
 
 </head>
+
+
+
+<div class="shadow hide" id="shadow" onclick="noshowModal()"></div>
+
+<div class="model hide" id="model">
+<!--    from 表单提交页面必定刷新，请求必定再次请求一次，这样可以在viws函数中，不使用重定向也可以，直接在view再次render-->
+    <img src="" alt="" id="show_id" style="height: 200px;">
+</div>
+
+
 
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -83,8 +127,11 @@
                                 <th style="text-align: center">名字</th>
                                 <th style="text-align: center">性别</th>
                                 <th style="text-align: center">学校</th>
+                                <th style="text-align: center">班级</th>
                                 <th style="text-align: center">电话</th>
                                 <th style="text-align: center">公寓</th>
+                                <th style="text-align: center">展示二维码</th>
+                                <th style="text-align: center">删除</th>
                             </tr>
                             </thead>
                             <tbody id="tbody">
@@ -97,6 +144,13 @@
                                         <td>{{ i.3 }}</td>
                                         <td>{{ i.4 }}</td>
                                         <td>{{ i.5 }}</td>
+                                        <td>{{ i.6 }}</td>
+                                        <td>
+                                            <a onclick="return showqr('{{ i.7 }}');"><span class="glyphicon glyphicon-qrcode"></span></a>
+                                        </td>
+                                        <td>
+                                            <a onclick="return AjaxSend('{{ i.0 }}')"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             {% endif %}
@@ -112,36 +166,27 @@
 
 <script src="../static/Users/js/jquery-1.11.1.min.js"></script>
 <script src="../static/Users/js/bootstrap.min.js"></script>
-<script src="../static/Users/js/chart.min.js"></script>
-<script src="../static/Users/js/chart-data.js"></script>
-<script src="../static/Users/js/easypiechart.js"></script>
-<script src="../static/Users/js/easypiechart-data.js"></script>
 <script src="../static/Users/js/bootstrap-datepicker.js"></script>
 <script>
-    !function ($) {
-        $(document).on("click", "ul.nav li.parent > a > span.icon", function () {
-            $(this).find('em:first').toggleClass("glyphicon-minus");
-        });
-        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-    }(window.jQuery);
 
-    $(window).on('resize', function () {
-        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-    })
-    $(window).on('resize', function () {
-        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-    })
 
-    function AjaxSend() {
+    function showqr(qr_url) {
+        document.getElementById("shadow").classList.remove("hide")
+        document.getElementById("model").classList.remove("hide")
+        $("#show_id").attr("src","/"+qr_url)
+    }
+
+    function noshowModal() {
+        document.getElementById("shadow").classList.add("hide")
+        document.getElementById("model").classList.add("hide")
+    }
+
+        function AjaxSend(nid) {
         $.ajax({
-            url: '/my_center/users_change_infomation/',
+            url: '/infomation_db/delete/',
             type: "POST",
             data: {
-                "session_users_name": {{session_users_name}},
-                "users_name": $("#users_name").val(),
-                "users_phone": $("#users_phone").val(),
-                "users_city": $("#users_city").val(),
-                "users_email": $("#users_email").val(),
+                "nid": nid
             },
             // 设置超时的时间XXs
             timeout: 30000,
@@ -153,12 +198,12 @@
                 // 登入成功
                 recv = JSON.parse(recv)
                 if (recv["status"] == "true") {
-                    alert("成功，信息已更新")
+                    alert("信息删除成功")
                     location.reload();
                 }
                 ;
                 if (recv["status"] == "false") {
-                    alert("异常，请重试，或将信息补充完整");
+                    alert("信息删除失败");
                     location.reload();
                 }
                 ;
