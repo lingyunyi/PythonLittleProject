@@ -47,7 +47,7 @@ def create_qrcode(request,ip="192.168.0.103"):
                 if apartment_content != "" and sex_content != "":
                     sql = '''SELECT max(id) from school_apartment'''
                     count = sql_manager_tools.search(sql,[])
-                    count_num = count[0][0]
+                    count_num = int(count[0][0])+1
                     print(count)
                     img_infomation = 'http:/%s/show_my_info/?nid=%s'%(ip,count_num)
                     # 生成伪随机随机字符串
