@@ -45,7 +45,7 @@ def create_qrcode(request,ip="192.168.0.103"):
         if school_content != "" and class_content != "":
             if iphone_content != "" and name_content != "":
                 if apartment_content != "" and sex_content != "":
-                    sql = '''select count(*) from school_apartment'''
+                    sql = '''SELECT max(id) from school_apartment'''
                     count = sql_manager_tools.search(sql,[])
                     count_num = count[0][0]
                     print(count)
