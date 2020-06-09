@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+    <title>食堂推荐 - 欢迎来到惊悚乐园</title>
+    <style type="text/css">
+        .hide {
+            display: none;
+        }
+
+        .shadow {
+            /*绝对定位*/
+            position: fixed;
+            /*沾满全屏*/
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            /*黑色背景*/
+            background-color: black;
+            /*透明度*/
+            opacity: 0.3;
+            /*越大越展示在用户前面*/
+            z-index: 999;
+        }
+
+        .model {
+            z-index: 1000;
+            position: fixed;
+            left: 0%;
+            bottom: 0%;
+            width: 100%;
+        {#height: 300px;#}{#margin-left: -200px;#}{#margin-top: -150px;#} background-color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+<ul class="list-group">
+    {% if select_nid != None %}
+        <li class="list-group-item ">
+            <span class="badge" style="background-color: white"><a href="/other_place_show/">></a></span>
+            <b>最好的地方</b>
+        </li>
+        <li class="list-group-item">
+            <b>{{select_nid.1}}</b>
+            <div id="main" style="height: 400px;text-align: center"></div>
+        </li>
+        <li class="list-group-item">
+            <span>当前人数：{{select_nid.3}}</span>
+            <span style="float: right">到达时间人数：{{select_nid.4}}</span>
+            <div>
+                <span>总容量：{{select_nid.2}}</span>
+                <span style="float: right">开放时间：{{select_nid.5}}</span>
+            </div>
+        </li>
+        <li class="list-group-item" style="text-align: center;" onclick="showModal_select_location()">
+            <b>当前位置：召唤师峡谷</b>
+        </li>
+        <li class="list-group-item" style="text-align: center;" onclick="showModal_select_time()">
+            <b>预计到达时间：{{ select_time }}</b>
+        </li>
+    {% endif %}
+</ul>
+
+
+<div class="shadow hide" id="shadow_select_location"></div>
+
+<div class="model hide" id="model_select_location">
+
+    <ul class="list-group" style="margin: 0px;text-align: center">
+        <li class="list-group-item">
+            <b>手动定位</b>
+        </li>
+        <li class="list-group-item ">
+            <b>重新定位</b>
+        </li>
+        <li class="list-group-item " onclick="noshowModal_select_location()">
+            <b>取消</b>
+        </li>
+    </ul>
+</div>
+
+<div class="shadow hide" id="shadow_select_time"></div>
+
+<div class="model hide" id="model_select_time">
+
+    <ul class="list-group" style="margin: 0px;">
+        <li class="list-group-item">
+            <button type="button" class="btn btn-sm text-right" style="background-color: forestgreen;color: white;float: right"
+            onclick="return AjaxSend();">
+                确定
+            </button>
+            <button type="button" class="btn btn-sm" onclick="noshowModal_select_time()">取消</button>
+        </li>
+        <li class="list-group-item ">
+            <select  class="form-control" style="text-align: center" id="select_time">
+                <option value="06" style="margin: 5px 0;">06:00-06:30</option>
+                <option value="07" style="margin: 5px 0;">07:00-07:30</option>
+                <option value="08" style="margin: 5px 0;">08:00-08:30</option>
+                <option value="09" style="margin: 5px 0;">09:00-09:30</option>
+                <option value="10" style="margin: 5px 0;">10:00-10:30</option>
+
+                <option value="11" style="margin: 5px 0;">11:00-11:30</option>
+                <option value="12" style="margin: 5px 0;">12:00-12:30</option>
+                <option value="13" style="margin: 5px 0;">13:00-13:30</option>
+                <option value="14" style="margin: 5px 0;">14:00-14:30</option>
+
+                <option value="17" style="margin: 5px 0;">17:00-17:30</option>
+                <option value="18" style="margin: 5px 0;">18:00-18:30</option>
+                <option value="19" style="margin: 5px 0;">19:00-19:30</option>
+            </select>
+        </li>
+    </ul>
+</div>
+
+<script>
+    function showModal_select_time() {
+        document.getElementById("shadow_select_time").classList.remove("hide")
+        document.getElementById("model_select_time").classList.remove("hide")
+    }
+
+    function noshowModal_select_time() {
+        document.getElementById("shadow_select_time").classList.add("hide")
+        document.getElementById("model_select_time").classList.add("hide")
+    }
+
+    function showModal_select_location() {
+        document.getElementById("shadow_select_location").classList.remove("hide")
+        document.getElementById("model_select_location").classList.remove("hide")
+    }
+
+    function noshowModal_select_location() {
+        document.getElementById("shadow_select_location").classList.add("hide")
+        document.getElementById("model_select_location").classList.add("hide")
+    }
+</script>
+
+
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
+    var option = {
+        title: {
+            text: '',       //大标题
+            subtext: '',                //类似于副标题
+            x: 'center'                 //标题位置   居中
+        },
+        tooltip: {
+            trigger: 'item',           //数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+            formatter: "{a} <br/>{b} : {c} ({d}%)"   //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）用于鼠标悬浮时对应的显示格式和内容
+        },
+        legend: {                           //图例组件。
+            orient: 'vertical',             //图例列表的布局朝向
+            left: 'left',
+            data: []
+        },
+        series: [              //系列列表。每个系列通过 type 决定自己的图表类型
+            {
+                name: '',
+                type: 'pie',
+                radius: '50%',
+                center: ['50%', '50%'],
+                data: [
+                    {value: {{select_nid.3}}, name: '已有'},
+                    {value: ({{select_nid.2}}-{{select_nid.3}}), name: '剩余'},
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+
+
+
+    myChart.setOption(option);
+
+
+
+</script>
+
+<script>
+    function AjaxSend() {
+        var select_time = $('#select_time').val()
+        if(select_time==''){
+            alert("请选择时间......")
+            return false
+        }
+        console.log(select_time);
+        $.ajax({
+            url: '/place_show/',
+            type: "POST",
+            data: {
+                'select_time':select_time
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (recv) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                console.log(recv)
+                recv = JSON.parse(recv)
+                if (recv["status"] == "true") {
+                    location.href= "/place_show/?nid="+recv["nid"]+"&select_time="+recv["time"]
+                }
+                ;
+                if (recv["status"] == "false") {
+                    alert("该时间段，暂时没有推荐......")
+                }
+                ;
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    }
+</script>
+</body>
+</html>
+
