@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    　　
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>内容 - 发布界面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #f7f7f9;">
+<div class="panel-heading" style="text-align: center">
+    <div class="panel-body">
+        <section id="section">
+            <div class="form-group">
+                <textarea class="form-control" rows="10" id="board_content"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="check_code">激活码</label>
+                <input type="text" class="form-control" id="check_code" placeholder="作者:Lingyunyi - QQ:553378880" >
+            </div>
+            <button type="submit" class="btn btn-default" style="width: 100%" onclick="return AjaxSend('section');"
+            ><b id="buttx">发布内容</b>
+            </button>
+        </section>
+    </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="panel-heading" style='text-align: center;'><a href="/ms_index/" style="color: white;"><b>（返回）</b></a>
+    </div>
+</nav>
+</body>
+</html>
+　　
+<script>
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("所有文本框不能为空"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+    function AjaxSend(id_name) {
+        var res = Cmd(id_name)
+        if ($("#board_content").val() == "") {
+            alert("所有文本框不能为空"); //弹出提示
+            return false;
+        }
+        if (res == true) {
+            $.ajax({
+                url: '/ms_push/',
+                type: "POST",
+                data: {
+                    "board_content": $("#board_content").val(),
+                    "check_code": $("#check_code").val(),
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (recv) {
+
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    recv = JSON.parse(recv);
+                    console.log(recv["result"]);
+                    if (recv["result"] == "True") {
+                        location.href = '/ms_index/'
+                    }
+                    ;
+                    if (recv["result"] == "False") {
+                        document.getElementById("buttx").innerHTML = "发布失败请重试";
+                    }
+                    ;
+                    if (recv["result"] == "Wait") {
+                        document.getElementById("buttx").innerHTML = "请一小时后发布";
+                    }
+                    ;
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+
+
+</script>

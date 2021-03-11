@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>趣步 - 每小时交易量</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #f7f7f9;">
+
+<div class="panel-heading" style="text-align: center;padding-bottom: 30px;">
+    <div class="panel-body">
+        {% if board_list_dict %}
+            {% for dict in board_list_dict %}
+                <div class="alert alert-{{ dict.color }}" role="alert">
+                    <b style="text-align: left;">{{ dict.times }}（{{ dict.location }}）</b><br/><br/>
+                    {% if dict.volume %}
+                        总交易量：<b>{{ dict.volume }}</b><br/>
+                    {% endif %}
+                    {% if dict.unitprice %}
+                        交易价格：<b>{{ dict.unitprice }} RMB</b><br/>
+                    {% endif %}
+                    {% if dict.board %}
+                        {{ dict.board_content }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="panel-heading" style='text-align: center;'><a href="/ms_push/" style="color: white;"><b>（资助作者）</b></a>
+    </div>
+</nav>
+</body>
+</html>
