@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>实时查询 - IP扫描系统</title>
+
+    <link href="../../static/admins/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/admins/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/admins/css/styles.css" rel="stylesheet">
+</head>
+
+<script>
+    function search_AjaxSend() {
+        $.ajax({
+            url: '',
+            type: "POST",
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (return_jsonList) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                // 登入成功
+                // 失败
+                if (return_jsonList != "") {
+                    var jsonList = JSON.parse(return_jsonList)['return_jsonList'];
+                    console.log(jsonList);
+                    var tab = $("#tbody");
+                    tab.empty();
+                    for (i = 0; i < jsonList.length; i++) {
+                        var toArray = JSON.parse(jsonList[i]);
+                        var ip_address = toArray[0];
+                        var ip_host = toArray[1];
+                        var ip_times = toArray[3];
+                        var portListStr = ""
+                        for (var key in toArray[2]) {
+                            portListStr += key + "。";
+                        }
+                        if (portListStr == "") {
+                            portListStr = "Nothing";
+                        }
+                        var rowStr = "<tr><td>" + ip_address + "</td>" + "<td>" + ip_host + "</td>" + "<td>" + portListStr + "</td>" +
+                            '<td><span class="glyphicon glyphicon-heart" aria-hidden="true"style="color: red"></span></td>' +
+                            "<td>" + ip_times + "</td></tr>";
+                        console.log(rowStr);
+                        console.log(tab);
+                        tab.append(rowStr);
+                    }
+                    ;
+                }
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    };
+</script>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>Nmap</span>扫描系统</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href=""><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li class="active"><a href="/"><span class="glyphicon glyphicon-tree-deciduous"></span>Nmap实时查询</a>
+        </li>
+        <li><a href="/nampscanDB"><span class="glyphicon glyphicon-tree-deciduous"></span>Nmap历史数据</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">Nmap实时查询</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Nmap实时查询(只显示最新10组数据)</h2>
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="height: auto;">
+                    <section>
+                        <fieldset  id="fieldset">
+                            <div class="form-group">
+                                <label for="ipAddress">ipAddress(例如：192.168.0.1 or 192.168.0.0/24)</label>
+                                <input type="email" class="form-control" id="ipAddress"
+                                       placeholder="例如：192.168.0.1 or 192.168.0.0/24)">
+                            </div>
+                            <div class="form-group">
+                                <label for="ipPort">ipPort(例如：20 or 1-65535)</label>
+                                <input type="email" class="form-control" id="ipPort" placeholder="例如：20 or 1-65535">
+                            </div>
+                            <button type="submit" class="btn btn-default" style="width: 100%" id="ipCommit"
+                                    onclick="scan_AjaxSend('fieldset');">申请扫描
+                            </button>
+                        </fieldset>
+                    </section>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="text-align: center">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">IP_Address</th>
+                                <th style="text-align: center">Host_Name</th>
+                                <th style="text-align: center">Open_Port</th>
+                                <th style="text-align: center">Is_Alive</th>
+                                <th style="text-align: center">Search_Times</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../static/admins/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/admins/js/bootstrap.min.js"></script>
+<script src="../../static/admins/js/chart.min.js"></script>
+<script src="../../static/admins/js/chart-data.js"></script>
+<script src="../../static/admins/js/easypiechart.js"></script>
+<script src="../../static/admins/js/easypiechart-data.js"></script>
+<script src="../../static/admins/js/bootstrap-datepicker.js"></script>
+<script>
+    !function ($) {
+        $(document).on("click", "ul.nav li.parent > a > span.icon", function () {
+            $(this).find('em:first').toggleClass("glyphicon-minus");
+        });
+        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+    }(window.jQuery);
+
+    $(window).on('resize', function () {
+        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+    })
+    $(window).on('resize', function () {
+        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+    })
+
+    window.onload = function () {
+        search_AjaxSend();
+    }
+
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("--所有文本框不能为空---"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+
+    function scan_AjaxSend(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            $("#fieldset").attr('disabled', 'disabled');
+            $("#ipCommit").text("查询中...请耐心等待，请勿刷新 请勿多次提交...");
+            $.ajax({
+                url: '/nampscanAPI',
+                type: "POST",
+                data: {
+                    'ipAddress': $("#ipAddress").val(),
+                    'ipPort': $("#ipPort").val()
+                },
+                // 设置超时的时间XXs
+                timeout: 300000,
+                success: function (data) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    console.log(data);
+                    $('#fieldset input').val('')
+                    // 登入成功
+                    if (data == "200") {
+                        alert("查询成功，即将刷新页面...")
+                        location.reload();
+                    }
+                    ;
+                    // 失败
+                    if (data == "400") {
+                        alert("查询失败，请检查输入的IP地址以及端口号是否正常..."); //弹出提示
+                        location.reload();
+                    }
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                    alert("查询失败，请检查输入的IP地址以及端口号是否正常..."); //弹出提示
+                    location.reload();
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>
