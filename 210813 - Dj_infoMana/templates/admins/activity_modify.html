@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>超管系统 - 主题信息管理系统</title>
+
+    <link href="../../static/admins/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/admins/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/admins/css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>主题信息</span>收集系统</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ user_name }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/activity_show">
+                <button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>返回</b></button>
+            </a>
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li class="active"><a href="activity_show"><span class="glyphicon glyphicon-tree-deciduous"></span>主题信息展示</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">主题信息发布系统</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">主题信息展示</h1>
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">（只可修改最新10条数据）</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <section id="form_id">
+                            {% if render_dict %}
+                                <h2><b>"{{ render_dict.title }}"</b><span
+                                        style="font-size: 50%">({{ render_dict.CreateTime }})</span></h2>
+                                <hr/>
+                                <div class="form-group" id="addContentF">
+                                    <label>新增内容：（填写后确认添加）</label>
+                                    <input type="text" class="form-control" id="addContent">
+                                </div>
+                                <button onclick="AjaxSendADD('addContentF')" class="btn btn-success btn-xs" style="opacity: 0.6;color: black;"><b>添加</b>
+                                </button>
+                                <hr/>
+                                {% for i in render_dict.infoList %}
+                                    <div class="form-group" id="{{ i.uuid }}">
+                                        <label class="">发布时间：{{ i.insertTime }}</label>
+                                        <input type="text" class="form-control col-8" value="{{ i.content }}">
+                                        <br/>
+                                        <div class="form-inline">
+                                            <button onclick="AjaxSend('modify','{{ i.uuid }}')"
+                                                    class="btn btn-warning btn-xs" style="opacity: 0.6;color: black;">
+                                                <b>修改</b></button>
+                                            <button onclick="AjaxSend('delete','{{ i.uuid }}')"
+                                                    class="btn btn-danger btn-xs" style="opacity: 0.6;color: black;"><b>删除</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../static/admins/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/admins/js/bootstrap.min.js"></script>
+
+<script>
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("修改删除内容不可以为空......"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+
+    function AjaxSend(operate, uuid) {
+        var res = Cmd(uuid)
+        if (res == true) {
+            var newContentID = "#" + uuid + " input"
+            var newContent = $(newContentID)[0].value
+            console.log(newContentID, newContent);
+            $.ajax({
+                url: '/activity_modify',
+                type: "POST",
+                data: {
+                    "title": "{{ render_dict.title }}",
+                    "operate": operate,
+                    "uuid": uuid,
+                    "newContent": newContent
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (jsonStr) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    var res_mesg = JSON.parse(jsonStr)
+                    console.log(res_mesg)
+                    // 登入成功
+                    if (res_mesg["status"] == "true") {
+                        alert(res_mesg["tip"])
+                        location.reload()
+                    } else if (res_mesg["status"] == "false") {
+                        alert(res_mesg["tip"])
+                        location.reload()
+                    }
+
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+
+    }
+
+
+    function AjaxSendADD(addContentF) {
+    var res = Cmd(addContentF)
+    if (res == true) {
+
+        $.ajax({
+            url: '/activity_modify',
+            type: "POST",
+            data: {
+                "title": "{{ render_dict.title }}",
+                "operate": "add",
+                "uuid": "",
+                "newContent": $("#addContent").val()
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var res_mesg = JSON.parse(jsonStr)
+                console.log(res_mesg)
+                // 登入成功
+                if (res_mesg["status"] == "true") {
+                    alert(res_mesg["tip"])
+                    $("#addContent").val("")
+                    location.reload()
+                } else if (res_mesg["status"] == "false") {
+                    alert(res_mesg["tip"])
+                    $("#addContent").val("")
+                    location.reload()
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    }
+
+}
+</script>
+</body>
+
+</html>

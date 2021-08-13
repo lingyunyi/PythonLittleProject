@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>超管系统 - 主题信息管理系统</title>
+
+    <link href="../../static/admins/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/admins/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/admins/css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>主题信息</span>收集系统</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ user_name }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/activity_show"><button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>返回</b></button></a>
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li class="active"><a href="activity_show"><span class="glyphicon glyphicon-tree-deciduous"></span>主题信息展示</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">主题信息发布系统</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">主题信息发布系统</h1>
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">主题信息发布系统(内容可为空)</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <section>
+                            <div class="form-group" id="active_namex">
+                                <label for="active_name">主题</label>
+                                <input type="text" class="form-control" id="active_name" name="active_name">
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label for="active_name">内容1</label>
+                                <input type="text" class="form-control" id="active_content1" name="active_content1">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容2</label>
+                                <input type="text" class="form-control" id="active_content2" name="active_content2">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容3</label>
+                                <input type="text" class="form-control" id="active_content3" name="active_content3">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容4</label>
+                                <input type="text" class="form-control" id="active_content4" name="active_content4">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容5</label>
+                                <input type="text" class="form-control" id="active_content5" name="active_content5">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容6</label>
+                                <input type="text" class="form-control" id="active_content6" name="active_content6">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容7</label>
+                                <input type="text" class="form-control" id="active_content7" name="active_content7">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容8</label>
+                                <input type="text" class="form-control" id="active_content8" name="active_content8">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容9</label>
+                                <input type="text" class="form-control" id="active_content9" name="active_content9">
+                            </div>
+                            <div class="form-group">
+                                <label for="active_name">内容10</label>
+                                <input type="text" class="form-control" id="active_content10" name="active_content10">
+                            </div>
+                            <button type="submit" class="btn btn-default" onclick="return AjaxSend('active_namex');">
+                                发布
+                            </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../static/admins/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/admins/js/bootstrap.min.js"></script>
+
+<script>
+
+
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("主题内容不可为空......"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+
+    function AjaxSend(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            var input_array = new Array();
+            if (document.getElementsByTagName("input")) {
+                for (var i = 0; i < document.getElementsByTagName("input").length; i++) {
+                    input_array[i] = document.getElementsByTagName("input")[i].value;
+                }
+            }
+            $.ajax({
+                url: '/activity_add',
+                type: "POST",
+                data: {
+                    "input_array": JSON.stringify(input_array),
+
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (jsonStr) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    var res_mesg = JSON.parse(jsonStr)
+                    console.log(res_mesg)
+                    // 登入成功
+                    if (res_mesg["status"] == "true") {
+                        alert(res_mesg["tip"])
+                        location.href = "/activity_show"
+                    }else if(res_mesg["status"] == "false"){
+                        alert(res_mesg["tip"])
+                        location.reload()
+                    }
+
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>超管系统 - 从这里进入未知的次元世界</title>
+    <link rel="stylesheet" href="../../static/admins/css/login.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="lowin">
+    <div class="lowin-brand">
+        <img src="../../static/admins/img/login.jpg" alt="logo">
+    </div>
+    <div class="lowin-wrapper">
+        <!--        登入模块-->
+        <div class="lowin-box lowin-login">
+            <div class="lowin-box-inner">
+                <section id="login_form">
+                    <!--                    登入表单开始-->
+                    <p>登入账号</p>
+                    <div class="lowin-group">
+                        <label>账号<a href="#" class="login-back-link">重新登入</a></label>
+                        <input type="text" name="account" class="lowin-input" id="users_account">
+                    </div>
+                    <div class="lowin-group password-group">
+                        <label style="">密码<a href="#" class="forgot-link" style="display: none">忘记密码</a></label>
+                        <input type="password" name="password" class="lowin-input" id="users_passwd">
+                    </div>
+                    <button class="lowin-btn login-btn" onclick="AjaxSend('login_form');">
+                        登入
+                    </button>
+                    <div class="text-foot">
+                        <a href="" class="register-link" style="display: none">注册</a>
+                    </div>
+                    <!--                    登入表单结束-->
+                </section>
+            </div>
+        </div>
+        <!--        登入模块结束-->
+        <!--        注册模块开始-->
+        <div class="lowin-box lowin-register">
+            <div class="lowin-box-inner">
+                <section id="register_form">
+                    <!--                    注册表单开始-->
+                    <p>注册账号</p>
+                    <div class="lowin-group">
+                        <label>账户ID</label>
+                        <input type="text" name="account" class="lowin-input">
+                    </div>
+                    <div class="lowin-group">
+                        <label>密码</label>
+                        <input type="password" name="password" class="lowin-input">
+                    </div>
+                    <!-- Cmd返回一个True 或者 False 如果返回False 那么就会出现 取消后续的默认事件 -->
+                    <button class="lowin-btn" onclick="return Cmd('register_form');">
+                        注册
+                    </button>
+
+                    <div class="text-foot">
+                        <a href="" class="login-link">登入</a>
+                    </div>
+                    <!--                    注册表单结束-->
+                </section>
+            </div>
+        </div>
+        <!--        注册模块结束-->
+    </div>
+    <!--    页脚模块开始-->
+    <footer class="lowin-footer">
+        @www.xxxxxxxxxx.com
+    </footer>
+    <!--    页脚模块结束-->
+</div>
+<!--引用js模块-->
+<script src="../../static/admins/js/login.js"></script>
+<!--自定义js脚本-->
+<script>
+    //    调用类中的init函数
+    Auth.init({
+        login_url: '/user/login/',
+        forgot_url: '#'
+    });
+</script>
+<script>
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("所有文本框不能为空"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+    function AjaxSend(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            $.ajax({
+                url: '',
+                type: "POST",
+                data: {
+                    "users_account": $("#users_account").val(),
+                    "users_passwd": $("#users_passwd").val(),
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (jsonStr) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    var res_mesg = JSON.parse(jsonStr)
+                    console.log(res_mesg)
+                    // 登入成功
+                    if (res_mesg["status"] == "true") {
+                        location.href = "/activity_show"
+                    }else if(res_mesg["status"] == "false"){
+                        alert("账号密码出错，请重试......")
+                        location.reload()
+                    }
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

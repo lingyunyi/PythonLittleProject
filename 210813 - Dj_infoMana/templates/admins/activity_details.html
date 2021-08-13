@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>超管系统 - 主题信息管理系统</title>
+
+    <link href="../../static/admins/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/admins/css/datepicker3.css" rel="stylesheet">
+    <link href="../../static/admins/css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>主题信息</span>收集系统</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ user_name }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/activity_show">
+                <button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>返回</b></button>
+            </a>
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li class="active"><a href="activity_show"><span class="glyphicon glyphicon-tree-deciduous"></span>主题信息展示</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">主题信息发布系统</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">主题信息展示</h1>
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">（不可修改，修改前往扩展）</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <section >
+                            {% if render_dict %}
+                                <h2><b>"{{ render_dict.title }}"</b><span
+                                        style="font-size: 50%">({{ render_dict.CreateTime }})</span></h2>
+                                <hr/>
+                                {% for i in render_dict.infoList %}
+                                    <div class="form-group">
+                                        <label>发布时间：{{ i.insertTime }}</label>
+                                        <input type="text" class="form-control" value="{{ i.content }}" disabled>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../static/admins/js/jquery-1.11.1.min.js"></script>
+<script src="../../static/admins/js/bootstrap.min.js"></script>
+
+<script>
+
+
+</script>
+</body>
+
+</html>
