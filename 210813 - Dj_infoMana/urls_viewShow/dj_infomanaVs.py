@@ -23,6 +23,9 @@ def activity_show(request):
         uuid4_str = request.COOKIES.get("username_id")
         user_nameQ = str(request.session.get(uuid4_str))
         user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-"*100)
+            return redirect('/')
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')
@@ -64,6 +67,9 @@ def activity_add(request):
         uuid4_str = request.COOKIES.get("username_id")
         user_nameQ = str(request.session.get(uuid4_str))
         user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-"*100)
+            return redirect('/')
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')
@@ -124,6 +130,10 @@ def activity_modify(request):
         uuid4_str = request.COOKIES.get("username_id")
         user_nameQ = str(request.session.get(uuid4_str))
         user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-"*100)
+            return redirect('/')
+
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')
@@ -214,6 +224,10 @@ def activity_delete(request):
         uuid4_str = request.COOKIES.get("username_id")
         user_nameQ = str(request.session.get(uuid4_str))
         user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-"*100)
+            return redirect('/')
+
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')
@@ -257,6 +271,10 @@ def activity_details(request):
         uuid4_str = request.COOKIES.get("username_id")
         user_nameQ = str(request.session.get(uuid4_str))
         user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-"*100)
+            return redirect('/')
+
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')

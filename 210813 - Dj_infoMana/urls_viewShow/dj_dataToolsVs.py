@@ -20,14 +20,18 @@ def Info_exportExcel(request):
 
     try:
         uuid4_str = request.COOKIES.get("username_id")
-        user_name = str(request.session.get(uuid4_str))
+        user_nameQ = str(request.session.get(uuid4_str))
+        user_name = hashlib.md5(str(user_nameQ).encode("utf-8")).hexdigest()
+        if uuid4_str == None:
+            print("-" * 100)
+            return redirect('/')
     except BaseException as e:
         print("-" * 50, e)
         return redirect('/')
 
     if request.method == "GET":
         print("-" * 15, "ViewFunc Info_exportExcel - Get", "-" * 15)
-        sql = '''select * from infomana order by id desc limit 1000 where accountName = %s'''
+        sql = '''select * from infomana where accountName = %s order by id desc limit 1000'''
         infoMalist = sqlData_unitToolsC.search(sql,[user_name],show=False)
         excelInsertValue = []
         if infoMalist:
@@ -46,6 +50,9 @@ def Info_exportExcel(request):
             response['Content-Type'] = 'application/octet-stream'
             response['Content-Disposition'] = 'attachment;filename="%s"'%(path.split("/")[-1])
             return response
+        else:
+            print("-" * 15, "数据库无值，不可导出数据。", "-" * 15)
+            return redirect('/activity_show')
     elif request.method == "POST":
             pass
 

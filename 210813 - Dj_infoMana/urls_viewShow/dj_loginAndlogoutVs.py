@@ -19,14 +19,16 @@ def infoMa_logout(request):
         ip = request.META['REMOTE_ADDR']
     if request.method == "GET":
         print("-" * 15, "ViewFunc infoMa_logout - Get", "-" * 15)
+        response = redirect('/')
         try:
             uuid4_str = request.COOKIES.get("username_id")
             user_name = str(request.session.get(uuid4_str))
             request.session.flush()
+            response.delete_cookie('username_id')
         except BaseException as e:
             print("-"*50,e)
-            return redirect('/')
-        return redirect('/')
+            return  response
+        return response
     elif request.method == "POST":
         print("-" * 15, "ViewFunc infoMa_logout - POST", "-" * 15)
         return redirect('/')
