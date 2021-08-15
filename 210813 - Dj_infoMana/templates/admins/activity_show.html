@@ -44,9 +44,25 @@
 
                             var contentCount = "<td>" + objectList["infoList"].length + "</td>";
                             if (objectList["infoList"].length >= 1) {
-                                var insertTime = "<td>" + (objectList["infoList"][objectList["infoList"].length - 1]["insertTime"]).slice(0, 10) + "</td>";
+                                var today = new Date();
+                                var years,months,days
+                                years = today.getFullYear(); //得到年份,getFullYear()比getYear()更普适
+                                months = today.getMonth() + 1; //得到月份，要加1
+                                days = today.getDate(); //得到日期
+                                if(months<10){
+                                    months = "0"+months
+                                }
+                                var currentTime = years +"-"+months+"-"+days
+                                var infoTime = (objectList["infoList"][objectList["infoList"].length - 1]["insertTime"]).slice(0, 10)
+                                console.log(currentTime,infoTime);
+                                if(infoTime==currentTime){
+                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span></td>';
+                                }else {
+                                    var insertTime = "<td>" + infoTime + ' - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span></td>';
+                                }
+
                             }else {
-                                var insertTime = "<td>" +"0000-00-00"+"</td>"
+                                var insertTime = "<td>" +"0000-00-00"+' - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span></td>'
                             }
                             var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>'
                             var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>'
@@ -63,7 +79,7 @@
                         var oldColor = "";
                         $("#tbody span").mouseover(function () {
                             oldColor = $(this).css("color");
-                            $(this).css("color", "red");
+                            $(this).css("color", "#f0ad4e");
                         }).mouseout(function () {
                             $(this).css("color", oldColor);
                         });

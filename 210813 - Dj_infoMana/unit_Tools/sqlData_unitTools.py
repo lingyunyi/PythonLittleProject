@@ -14,7 +14,7 @@ class sqlData_unitTools(object):
         :return:
         '''
         try:
-            self.db = pymysql.connect(host="127.0.0.1", user="root", password="root", database="infomana")
+            self.db = pymysql.connect(host="121.199.55.63", user="root", password="root", database="infomana")
             # 使用cursor游标，创建一个游标对象cursor
             self.cursor = self.db.cursor()
             return True

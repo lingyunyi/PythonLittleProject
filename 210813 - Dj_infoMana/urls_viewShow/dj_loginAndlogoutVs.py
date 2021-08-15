@@ -68,4 +68,6 @@ def infoMa_login(request):
                 obj.set_cookie("username_id", uuid4_str, 60 * 60 * 24)
             else:
                 jsonStr["tip"] = "login false"
+                obj = HttpResponse(json.dumps(jsonStr))
+            print(jsonStr)
         return obj
