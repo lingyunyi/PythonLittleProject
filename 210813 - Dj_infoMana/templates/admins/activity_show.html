@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -58,11 +58,11 @@
                                 if(infoTime==currentTime){
                                     var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span></td>';
                                 }else {
-                                    var insertTime = "<td>" + infoTime + ' - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span></td>';
+                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span></td>';
                                 }
 
                             }else {
-                                var insertTime = "<td>" +"0000-00-00"+' - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span></td>'
+                                var insertTime = "<td><b>" +"0000-00-00"+'</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span></td>'
                             }
                             var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>'
                             var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>'
