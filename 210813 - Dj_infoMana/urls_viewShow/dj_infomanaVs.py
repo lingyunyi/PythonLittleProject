@@ -152,7 +152,7 @@ def activity_modify(request):
                         render_dict.get("infoList").reverse()
                         if len(render_dict.get("infoList")) >=10:
                             render_dict["infoList"] = render_dict.get("infoList")[0:10]
-        return render(request, "admins/activity_modify.html", {"render_dict": render_dict,"user_name":user_nameQ})
+        return render(request, "admins/activity_modify.html", {"render_dict": render_dict,"user_name":user_nameQ,"title":title})
     elif request.method == "POST":
         print("-" * 15, "ViewFunc activity_modify - POST", "-" * 15)
         title = request.POST.get("title", None)
@@ -291,7 +291,7 @@ def activity_details(request):
                     if title == json.loads(i[1]).get("title", None):
                         render_dict = json.loads(i[1])
                         render_dict.get("infoList",None).reverse()
-        return render(request, "admins/activity_details.html",{"render_dict":render_dict,"user_name":user_nameQ})
+        return render(request, "admins/activity_details.html",{"render_dict":render_dict,"user_name":user_nameQ,"title":title})
     elif request.method == "POST":
         print("-" * 15, "ViewFunc activity_details - POST", "-" * 15)
         pass
