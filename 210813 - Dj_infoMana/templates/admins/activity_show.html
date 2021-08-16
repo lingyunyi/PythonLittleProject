@@ -36,11 +36,16 @@
                         console.log(jsonStr)
                         var tab = $("#tbody");
                         tab.empty();
+                        var successList = [];
                         for (i = 0; i < jsonStr.length; i++) {
                             var objectList = JSON.parse(String(jsonStr[i]).replace(/'/g, '"'));
                             var numid = "<td>" + (i + 1) + "</td>";
                             var title = "<td><b>" + objectList["title"] + "</b></td>";
                             var contentCount = "<td>" + objectList["infoList"].length + "</td>";
+                            var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>'
+                            var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>'
+                            var Ondelete = '<td ><a onclick="AjaxSendDelete(\'' + objectList["title"] + '\');"><span  class="glyphicon glyphicon-remove-circle"  a-hidden="true" ></span></a></td>'
+
                             if (objectList["infoList"].length >= 1) {
                                 var today = new Date();
                                 var years,months,days
@@ -53,26 +58,27 @@
                                 var currentTime = years +"-"+months+"-"+days
                                 var infoTime = (objectList["infoList"][objectList["infoList"].length - 1]["insertTime"]).slice(0, 10)
                                 var infoContent = (objectList["infoList"][objectList["infoList"].length - 1]["content"])
+                                var insertContent = "<td title='"+ infoContent +"'>" + infoContent.slice(0, 10) + "...</td>";
                                 console.log(currentTime,infoTime);
                                 if(infoTime==currentTime){
                                     var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span></td>';
+                                    var rowStr = "<tr>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
+                                    successList[i] = rowStr;
+                                    continue;
                                 }else {
                                     var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span></td>';
                                 }
-                                var insertContent = "<td title='"+ infoContent +"'>" + infoContent.slice(0, 10) + "...</td>";
                             }else {
                                 var insertTime = "<td><b>" +"0000-00-00"+'</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span></td>'
-                                var insertContent = "<td title='小彩蛋：今天你还没有努力学习哦~'>" + "鼠标移至这儿..." + "</td>";
+                                var insertContent = "<td title='小彩蛋：今天你还没有努力学习哦~'>" + "（——（O.o）——）" + "</td>";
                             }
-                            var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>'
-                            var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>'
-                            var Ondelete = '<td ><a onclick="AjaxSendDelete(\'' + objectList["title"] + '\');"><span  class="glyphicon glyphicon-remove-circle"  a-hidden="true" ></span></a></td>'
-
                             var rowStr = "<tr>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
                             tab.append(rowStr);
+                        };
+                        for (i = 0; i < successList.length; i++) {
+                             tab.append(successList[i]);
                         }
-                        ;
-                        ;
+
                     }
 
                     $(function () {
