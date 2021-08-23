@@ -58,21 +58,27 @@
                                 var currentTime = years +"-"+months+"-"+days
                                 var infoTime = (objectList["infoList"][objectList["infoList"].length - 1]["insertTime"]).slice(0, 10)
                                 var infoContent = (objectList["infoList"][objectList["infoList"].length - 1]["content"])
-                                var insertContent = "<td title='"+ infoContent +"'>" + infoContent.slice(0, 10) + "...</td>";
+                                var insertContent = "<td>" + infoContent.slice(0, 10) + "...</td>";
                                 console.log(currentTime,infoTime);
+                                var leftTime = Math.abs(currentTime.slice(8,10) - infoTime.slice(8,10));
+                                var leftTimeHtml = "<b>" + Math.abs(currentTime.slice(8,10) - infoTime.slice(8,10)) + "</b>";
+
                                 if(infoTime==currentTime){
-                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span></td>';
-                                    var rowStr = "<tr>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
+                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span> - ' +
+                                        leftTimeHtml + '</td>';
+                                    var rowStr = "<tr title='"+ infoContent +"'>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
                                     successList[i] = rowStr;
                                     continue;
                                 }else {
-                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span></td>';
+                                    var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span> - ' +
+                                        leftTimeHtml + '</td>';
                                 }
                             }else {
-                                var insertTime = "<td><b>" +"0000-00-00"+'</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span></td>'
+                                var insertTime = "<td><b>" +"0000-00-00"+'</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span> - ' +
+                                    '<b>0</b>' + '</td>'
                                 var insertContent = "<td title='小彩蛋：今天你还没有努力学习哦~'>" + "（——（O.o）——）" + "</td>";
                             }
-                            var rowStr = "<tr>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
+                            var rowStr = "<tr title='"+ infoContent +"'>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
                             tab.append(rowStr);
                         };
                         for (i = 0; i < successList.length; i++) {
