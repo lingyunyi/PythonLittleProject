@@ -42,9 +42,9 @@
                             var numid = "<td>" + (i + 1) + "</td>";
                             var title = "<td><b>" + objectList["title"] + "</b></td>";
                             var contentCount = "<td>" + objectList["infoList"].length + "</td>";
-                            var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>'
-                            var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>'
-                            var Ondelete = '<td ><a onclick="AjaxSendDelete(\'' + objectList["title"] + '\');"><span  class="glyphicon glyphicon-remove-circle"  a-hidden="true" ></span></a></td>'
+                            var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></td>'
+                            var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a></td>'
+                            var Ondelete = '<td ><a onclick="AjaxSendDelete(\'' + objectList["title"] + '\');"><span  class="glyphicon glyphicon-remove-sign"  a-hidden="true" ></span></a></td>'
 
                             if (objectList["infoList"].length >= 1) {
                                 var today = new Date();
@@ -64,7 +64,7 @@
                                 var insertContent = "<td>" + infoContent.slice(0, 10) + "...</td>";
                                 var leftTime = currentTime.slice(8,10) - infoTime.slice(8,10);
                                 if(leftTime<0){
-                                    leftTime = 31 - infoTime.slice(8,10);
+                                    leftTime = 30 - parseInt(infoTime.slice(8,10)) + parseInt(currentTime.slice(8,10));
                                 }
                                 var leftTimeHtml = "<b>" + leftTime + "</b>";
 
