@@ -1,0 +1,22 @@
+html {
+    width: 960px;
+    margin: 0 auto;
+}
+
+th {
+    text-align: center;
+}
+
+body {
+
+    padding: 0
+}
+
+#navbar {
+
+    border-radius: 0;
+}
+
+a {
+    text-decoration: none;
+}
