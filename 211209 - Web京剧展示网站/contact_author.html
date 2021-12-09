@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>联系作者</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+
+    <link rel="stylesheet" href="css/base.css" type="text/css"/>
+
+    <script src="css/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid" style="height: 90px;background-color: #f6f6f6;padding: 0px">
+
+        <div class="navbar-header">
+            <img src="img/jingju_logo.png" style="width: 100%;height: 90px;">
+        </div>
+
+        <div class="collapse navbar-collapse" id="index_nav_list" style="background-color: #7a242f">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">内容首页<span class="sr-only"></span></a></li>
+                <li><a href="news_shows.html">新闻资讯</a></li>
+                <li><a href="jingju_Introduction.html">京剧简介</a></li>
+                <li><a href="jingju_teacher.html">京剧名家</a></li>
+                <li><a href="readme.html">关于我们</a></li>
+                <li style="margin-left: 30px;"><a href="mailto:2908788632@qq.com；" style="color: #ff72d8">发送邮箱(邮箱弹窗)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #e6be78;font-size: 15px;font-weight: 600">
+        联系我们
+    </div>
+    <div class="panel-body" style="background-color: #f8efe6;">
+        <form>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" class="form-control" placeholder="">
+            </div>
+            <div class="form-group">
+                <label>联系方式</label>
+                <input type="text" class="form-control" placeholder="">
+            </div>
+            <div class="form-group">
+                <label>留言</label>
+                <textarea class="form-control" rows="10"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-default" disabled>发送</button>
+        </form>
+    </div>
+</div>
+
+<div id="foot_one">
+    <a href="readme.html" style="text-decoration: none;">
+        <div>版权声明 ┊ 隐私声明 ┊ 联系我们 ┊ 网站地图 ┊ 更新时间：2021-12-10</div>
+    </a>
+</div>
+
+<div id="foot_two">
+    <div style="letter-spacing: 0.287em;line-height: 105px;font-size: 16px;font-weight: 600;">Copyright©2021-2021 All
+        Right Reserved ┊ 版权所有:200604292322 ┊ 周冬梅
+    </div>
+</div>
+</body>
+<script>
+    function randomNum(minNum, maxNum) {
+        switch (arguments.length) {
+            case 1:
+                return parseInt(Math.random() * minNum + 1, 10);
+                break;
+            case 2:
+                return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+                break;
+            default:
+                return 0;
+                break;
+        }
+    }
+
+    var ii = 0
+
+    randomImg();
+
+
+    function randomImg() {
+        var items = document.getElementById("jumbotron").getElementsByTagName("a");
+        for (var i = 0; i < items.length; i++) {
+            console.log(items.length)
+            items[i].style.display = "none";
+        }
+        ;
+        var randomint = randomNum(0, (items.length - 1))
+        items[randomint].style.display = "block";
+    }
+
+    window.setInterval(randomImg, 3000);
+</script>
+</html>

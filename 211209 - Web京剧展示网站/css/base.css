@@ -1,0 +1,115 @@
+html {
+    width: 960px;
+    margin: 0 auto;
+
+}
+
+body {
+    background-color: #fffaf3;
+}
+
+
+
+#index_nav_list > ul > li > a {
+    height: 90px;
+    line-height: 60px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+#index_nav_list > ul > li > a:hover {
+    color: gold;
+    padding: 20px 20px;
+    font-size: 20px;
+}
+
+#jumbotron > a {
+    height: 300px;
+}
+
+#news_list_content > li {
+    margin: 0;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+}
+
+#news_list_content > li > a {
+    text-decoration: none;
+
+}
+
+#news_list_content > li > a:hover {
+    padding: 5px 0px;
+    font-size: 18px;
+
+}
+#news_list_content_2 > li {
+    margin: 0;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+}
+
+#news_list_content_2 > li > a {
+    text-decoration: none;
+
+}
+
+#news_list_content_2 > li > a:hover {
+    padding: 5px 0px;
+    font-size: 18px;
+
+}
+
+#tv_show {
+    text-align: center;
+}
+
+#tv_show img {
+    height: 340px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#tv_show_2 {
+    text-align: center;
+}
+
+#tv_show_2 img {
+    height: 340px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#foot_one {
+    background: url('../img/foot_logo.png');
+    background-size: 960px 104px;
+    height: 104px;
+    line-height: 104px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#foot_two {
+    background: url('../img/foot_logo_2.png');
+    background-size: 960px 104px;
+    height: 104px;
+    line-height: 104px;
+    text-align: center;
+    color: #e4d6bb;
+}
+
+
+#teacher_show_d img{
+    height: 260px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#teacher_show_j img{
+    height: 260px;
+    width: 100%;
+    max-width: 100%;
+}
