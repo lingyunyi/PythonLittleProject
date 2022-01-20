@@ -34,8 +34,12 @@
                     if (jsonStr != "") {
                         var jsonStr = JSON.parse(jsonStr);
                         console.log(jsonStr)
-                        var tab = $("#tbody");
-                        tab.empty();
+                        var tab_dai = $("#tbody_dai");
+                        tab_dai.empty();
+                        var tab_yi = $("#tbody_yi");
+                        tab_yi.empty();
+
+
                         var successList = [];
                         for (i = 0; i < jsonStr.length; i++) {
                             var objectList = JSON.parse(String(jsonStr[i]).replace(/'/g, '"'));
@@ -48,53 +52,54 @@
 
                             if (objectList["infoList"].length >= 1) {
                                 var today = new Date();
-                                var years,months,days
+                                var years, months, days
                                 years = today.getFullYear(); //得到年份,getFullYear()比getYear()更普适
                                 months = today.getMonth() + 1; //得到月份，要加1
                                 days = today.getDate(); //得到日期
-                                if(months<10){
-                                    months = "0"+months
+                                if (months < 10) {
+                                    months = "0" + months
                                 }
-                                if(days<10){
-                                    days = "0"+days
+                                if (days < 10) {
+                                    days = "0" + days
                                 }
-                                var currentTime = years +"-"+months+"-"+days
+                                var currentTime = years + "-" + months + "-" + days
                                 var infoTime = (objectList["infoList"][objectList["infoList"].length - 1]["insertTime"]).slice(0, 10)
                                 var infoContent = (objectList["infoList"][objectList["infoList"].length - 1]["content"])
                                 var insertContent = "<td>" + infoContent.slice(0, 10) + "...</td>";
-                                var leftTime = currentTime.slice(8,10) - infoTime.slice(8,10);
-                                if(leftTime<0){
-                                    leftTime = 30 - parseInt(infoTime.slice(8,10)) + parseInt(currentTime.slice(8,10));
+                                var leftTime = currentTime.slice(8, 10) - infoTime.slice(8, 10);
+                                if (leftTime < 0) {
+                                    leftTime = 30 - parseInt(infoTime.slice(8, 10)) + parseInt(currentTime.slice(8, 10));
                                 }
                                 var leftTimeHtml = "<b>" + leftTime + "</b>";
 
-                                if(infoTime==currentTime){
+                                if (infoTime == currentTime) {
                                     var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #5cb85c" class="glyphicon glyphicon-ok-sign"  a-hidden="true" ></span> - ' +
                                         leftTimeHtml + '</td>';
-                                    var rowStr = "<tr title='"+ infoContent +"'>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
+                                    var rowStr = "<tr title='" + infoContent + "'>" + numid + title + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
                                     successList[i] = rowStr;
                                     continue;
-                                }else {
+                                } else {
                                     var insertTime = "<td><b>" + infoTime + '</b> - <span style="color: #d9534f" class="glyphicon glyphicon-question-sign"  a-hidden="true" ></span> - ' +
                                         leftTimeHtml + '</td>';
                                 }
-                            }else {
-                                var insertTime = "<td><b>" +"0000-00-00"+'</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span> - ' +
+                            } else {
+                                var insertTime = "<td><b>" + "0000-00-00" + '</b> - <span style="color: #5bc0de" class="glyphicon glyphicon-plus-sign"  a-hidden="true" ></span> - ' +
                                     '<b>0</b>' + '</td>'
                                 var insertContent = "<td title='小彩蛋：今天你还没有努力学习哦~'>" + "（——（O.o）——）" + "</td>";
                             }
-                            var rowStr = "<tr title='"+ infoContent +"'>" + numid + title  + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
-                            tab.append(rowStr);
-                        };
+                            var rowStr = "<tr title='" + infoContent + "'>" + numid + title + contentCount + insertTime + insertContent + details + modify + Ondelete + "</tr>";
+                            tab_dai.append(rowStr);
+                        }
+                        ;
                         for (i = 0; i < successList.length; i++) {
-                             tab.append(successList[i]);
+                            tab_yi.append(successList[i]);
                         }
 
                     }
 
                     $(function () {
                         var oldColor = "";
-                        $("#tbody span").mouseover(function () {
+                        $(".table span").mouseover(function () {
                             oldColor = $(this).css("color");
                             $(this).css("color", "#f0ad4e");
                         }).mouseout(function () {
@@ -175,11 +180,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="请输入主题进行搜索..." id="search"
-                               oninput="AjaxSend();">
-                    </div>
+                <div class="panel-heading text-center" style="height: auto;">
+                    <h4 style="font-weight: 900;">（待完成）</h4>
+                    {#                    <div class="form-group">#}
+                    {#                        <input type="text" class="form-control" placeholder="请输入主题进行搜索..." id="search"#}
+                    {#                               oninput="AjaxSend();">#}
+                    {#                    </div>#}
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -195,7 +201,40 @@
                             <th style="text-align: center">删除</th>
                             </tr>
                             </thead>
-                            <tbody id="tbody">
+                            <tbody id="tbody_dai">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center" style="height: auto;">
+                    <h4 style="font-weight: 900;">（已完成）</h4>
+                    {#                    <div class="form-group">#}
+                    {#                        <input type="text" class="form-control" placeholder="请输入主题进行搜索..." id="search"#}
+                    {#                               oninput="AjaxSend();">#}
+                    {#                    </div>#}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="text-align: center">
+                            <thead>
+                            <th style="text-align: center">序号</th>
+                            <th style="text-align: center">主题</th>
+                            <th style="text-align: center">含量</th>
+                            <th style="text-align: center">最近</th>
+                            <th style="text-align: center">内容</th>
+                            <th style="text-align: center">查看</th>
+                            <th style="text-align: center">扩展</th>
+                            <th style="text-align: center">删除</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_yi">
 
                             </tbody>
                         </table>
