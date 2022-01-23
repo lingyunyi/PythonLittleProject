@@ -44,7 +44,7 @@
                         for (i = 0; i < jsonStr.length; i++) {
                             var objectList = JSON.parse(String(jsonStr[i]).replace(/'/g, '"'));
                             var numid = "<td>" + (i + 1) + "</td>";
-                            var title = "<td><b>" + objectList["title"] + "</b></td>";
+                            var title = '<td><a style="text-decoration: none;color: #19988b;" href="/activity_modify?title=' + objectList["title"] + '"><b>' + objectList["title"] + "</b></a></td>";
                             var contentCount = "<td>" + objectList["infoList"].length + "</td>";
                             var details = '<td><a href="/activity_details?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></td>'
                             var modify = '<td><a href="/activity_modify?title=' + objectList["title"] + '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a></td>'
