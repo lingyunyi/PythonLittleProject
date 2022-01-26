@@ -13,6 +13,15 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+HOST="121.199.55.63"
+DB_USER = 'lingyunyi'
+DB_PASSWORD = 'wotama'
+DB_NAME = "infomana"
+BACK_DIR = r'E:\PythonProject\equipment_manager_sys\static\backups_dir/'
+mysql_dump_dir = r'D:\xampp\MySQL\bin\mysqldump.exe'
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

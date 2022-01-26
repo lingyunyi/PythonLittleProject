@@ -27,6 +27,6 @@ urlpatterns = [
     path(r"activity_modify", dj_infomanaVs.activity_modify),
     path(r"activity_delete", dj_infomanaVs.activity_delete),
     # ————————————————————————————————————————————————————————————
-    path(r"exportExcel",dj_dataToolsVs.Info_exportExcel)
+    path(r"exportExcel",dj_dataToolsVs.API_db_backups_save)
 
 ]
