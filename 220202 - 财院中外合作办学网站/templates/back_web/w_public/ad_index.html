@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员后台 - 首页展示</title>
+    <link href="../../../static/bs3_packages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/datepicker3.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/back/ad/ad_index"><span><b>管理员</b></span>后台管理</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ user_iphone }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/back/all/logut/"><span class="glyphicon glyphicon-plane"></span>（登出）</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href=""><span class="glyphicon glyphicon-floppy-save"></span>（备份）</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/back/all/logut/">
+                <button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>登出</b></button>
+            </a>
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li class="active"><a href="activity_show"><span class="glyphicon glyphicon-tree-deciduous"></span>个人信息</a>
+        </li>
+        <li class=""><a href="activity_show"><span class="glyphicon glyphicon-tree-deciduous"></span>主题信息展示</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">主题信息展示</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">主题信息展示</h2>
+
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center" style="height: auto;">
+                    <h4 style="font-weight: 900;">（待完成）</h4>
+
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="text-align: center">
+                            <thead>
+                            <th style="text-align: center">序号</th>
+                            <th style="text-align: center">主题</th>
+                            <th style="text-align: center">含量</th>
+                            <th style="text-align: center">最近</th>
+                            <th style="text-align: center">内容</th>
+                            <th style="text-align: center">查看</th>
+                            <th style="text-align: center">扩展</th>
+                            <th style="text-align: center">删除</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_dai">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+
+
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../../static/bs3_packages/js/jquery-1.11.1.min.js"></script>
+<script src="../../../static/bs3_packages/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

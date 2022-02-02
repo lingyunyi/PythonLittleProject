@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>后台登录 - 登入跳转</title>
+    <link rel="stylesheet" href="../../../static/bs3_packages/css/login.css">
+    <link rel="stylesheet" href="../../../static/bs4_packages/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../static/back_static/s_public/admin_public.css">
+
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="lowin">
+    <div class="lowin-brand">
+        <img src="../../../static/bs3_packages/img/login.jpg" alt="logo">
+    </div>
+    <div class="lowin-wrapper">
+        <!--        登入模块-->
+        <div class="lowin-box lowin-login">
+            <div class="lowin-box-inner">
+                <section id="login_form">
+                    <!--                    登入表单开始-->
+                    <p>登入账号</p>
+                    <div class="lowin-group">
+                        <label>手机号<a href="#" class="login-back-link">重新登入</a></label>
+                        <input type="text" name="login_iphone" class="lowin-input" id="login_iphone"
+                               oninput="if(value.length>11)value=value.slice(0,11)"/>
+                    </div>
+                    <div class="lowin-group password-group">
+                        <label style="">密码<a href="#" class="forgot-link" style="display: none">忘记密码</a></label>
+                        <input type="password" name="login_passwd" class="lowin-input" id="login_passwd">
+                    </div>
+                    <div class="lowin-group password-group">
+                        <label style="">验证码</label>
+                        <input type="text" name="login_checkCode" class="lowin-input" id="login_checkCode"
+                               oninput="if(value.length>4)value=value.slice(0,4)" value="5678">
+                    </div>
+                    <div class="lowin-group password-group" id="login_type">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="admin_login" name="login_type"
+                                   class="custom-control-input" value="Ad" checked>
+                            <label class="custom-control-label" for="admin_login">管理员
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="teacher_login" name="login_type"
+                                   class="custom-control-input" value="Te">
+                            <label class="custom-control-label" for="teacher_login">教师
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="student_login" name="login_type"
+                                   class="custom-control-input" value="St">
+                            <label class="custom-control-label" for="student_login">学生
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                    <button class="lowin-btn login-btn" onclick="account_login('login_form');" style="font-size: 20px;">
+                        登入
+                    </button>
+                    <div class="text-foot">
+                        <a href="" class="register-link" style="font-size: 20px;">注册</a>
+                    </div>
+                    <!--                    登入表单结束-->
+                </section>
+            </div>
+        </div>
+        <!--        登入模块结束-->
+        <!--        注册模块开始-->
+        <div class="lowin-box lowin-register">
+            <div class="lowin-box-inner">
+                <section id="register_form">
+                    <!--                    注册表单开始-->
+                    <p>注册账号</p>
+                    <div class="lowin-group">
+                        <label>手机号</label>
+                        <input type="text" name="regis_iphone" class="lowin-input" id="regis_iphone"
+                               oninput="if(value.length>11)value=value.slice(0,11)" >
+                    </div>
+                    <div class="lowin-group">
+                        <label>密码</label>
+                        <input type="password" name="regis_passwd" class="lowin-input" id="regis_passwd">
+                    </div>
+                    <div class="lowin-group">
+                        <label>验证码</label>
+                        <input type="text" name="regis_checkCode" class="lowin-input" id="regis_checkCode"
+                               oninput="if(value.length>4)value=value.slice(0,4)" value="5678">
+                    </div>
+                    <div class="lowin-group password-group" id="regis_type">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="admin_regis" name="regis_type"
+                                   class="custom-control-input" value="Ad" checked>
+                            <label class="custom-control-label" for="admin_regis">管理员
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="teacher_regis" name="regis_type"
+                                   class="custom-control-input" value="Te">
+                            <label class="custom-control-label" for="teacher_regis">教师
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="student_regis" name="regis_type"
+                                   class="custom-control-input" value="St">
+                            <label class="custom-control-label" for="student_regis">学生
+                            </label>
+                        </div>
+
+
+                    </div>
+                    <!-- Cmd返回一个True 或者 False 如果返回False 那么就会出现 取消后续的默认事件 -->
+                    <button class="lowin-btn" onclick="return account_register('register_form');" style="font-size: 20px;">
+                        注册
+                    </button>
+
+                    <div class="text-foot">
+                        <a href="" class="login-link" style="font-size: 20px;">登入</a>
+                    </div>
+                    <!--                    注册表单结束-->
+                </section>
+            </div>
+        </div>
+        <!--        注册模块结束-->
+    </div>
+    <!--    页脚模块开始-->
+    <footer class="lowin-footer">
+
+    </footer>
+    <!--    页脚模块结束-->
+</div>
+<script src="../../../static/bs4_packages/js/bootstrap.bundle.min.js"></script>
+<script src="../../../static/bs4_packages/js/bootstrap.min.js"></script>
+<div class="modal " tabindex="-1" id="infoModal">
+    <div class="modal-dialog ">
+        <div class="modal-content text-center">
+            <div class="modal-header" style="display: block;padding: 35px 0px;">
+                <h6 class="text-monospace" style="color: #19988b"><b>{{ AD_Show }}</b></h6>
+            </div>
+            <div class="modal-body">
+                <b><p class="text-monospace" id="TxtContent" style="color: lightcoral"></p></b>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引用js模块-->
+<script src="../../../static/bs3_packages/js/login.js"></script>
+<!--自定义js脚本-->
+<script>
+    //    调用类中的init函数
+    Auth.init({
+        login_url: '/user/login/',
+        forgot_url: '#'
+    });
+</script>
+<script>
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                $("#TxtContent").html("（OvO 您有内容未输入哟 OvO）")
+                $('#infoModal').modal('show')
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+    function account_login(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            var radio = document.getElementsByName("login_type");
+            var selectvalue = null; //  selectvalue为radio中选中的值
+            for (var i = 0; i < radio.length; i++) {
+                if (radio[i].checked == true) {
+                    selectvalue = radio[i].value;
+                    break;
+                }
+            }
+            $.ajax({
+                url: '/back/index/',
+                type: "POST",
+                data: {
+                    "model": "Lo",
+                    "login_iphone": $("#login_iphone").val(),
+                    "login_passwd": $("#login_passwd").val(),
+                    "login_checkCode": $("#login_checkCode").val(),
+                    "login_type": selectvalue,
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (jsonStr) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    var GetData = JSON.parse(jsonStr)
+                    console.log(GetData)
+                    // 登入成功
+                    if (GetData["login_result"] == "True") {
+                        if (GetData["login_type"] == "Ad") {
+                            //跳转管理员后台页面
+                            location.href = ""
+                        } else if (GetData["login_type"] == "Te") {
+                            //跳转教师后台页面
+                            location.href = ""
+                        } else if (GetData["login_type"] == "St") {
+                            //跳转学生后台页面
+                            $("#TxtContent").html("（OvO 跳转到学生 OvO）")
+                            location.href = ""
+                        }
+                    } else if (GetData["login_tip"] == "AnP_False") {
+                        $("#TxtContent").html("（OvO 登入失败——账号或密码错误 OvO）")
+                        $('#infoModal').modal('show')
+                    }
+
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+
+    function account_register(id_name) {
+        var res = Cmd(id_name)
+        if (res == true) {
+            var radio = document.getElementsByName("regis_type");
+            var selectvalue = null; //  selectvalue为radio中选中的值
+            for (var i = 0; i < radio.length; i++) {
+                if (radio[i].checked == true) {
+                    selectvalue = radio[i].value;
+                    break;
+                }
+            }
+            $.ajax({
+                url: '/back/index/',
+                type: "POST",
+                data: {
+                    "model": "Re",
+                    "regis_iphone": $("#regis_iphone").val(),
+                    "regis_passwd": $("#regis_passwd").val(),
+                    "regis_checkCode": $("#regis_checkCode").val(),
+                    "regis_type": selectvalue,
+                },
+                // 设置超时的时间XXs
+                timeout: 30000,
+                success: function (jsonStr) {
+                    //当服务端处理完成后，返回数据时，该函数自动调用
+                    // data代表服务器给我们返回的值
+                    // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                    var GetData = JSON.parse(jsonStr)
+                    console.log(GetData)
+                    // 登入成功
+                    if (GetData["regis_result"] == "True") {
+                        $("#TxtContent").html("（OvO 注册成功 OvO）")
+                        $('#infoModal').modal('show')
+                        location.reload()
+                    } else if (GetData["regis_tip"] == "AcUnque") {
+                        $("#TxtContent").html("（OvO 注册失败——账户已存在 OvO）")
+                        $('#infoModal').modal('show')
+                    }
+                    $(":input").val("")
+
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    console.log("error");
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>
