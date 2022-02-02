@@ -1,0 +1,24 @@
+
+.margin_temp {
+    margin: 500px 0;
+}
+
+
+.blcok_contentNav {
+
+
+    background: rgb(0, 0, 0, 0.5);
+
+
+}
+
+
+.no_bg {
+    background-color: white;
+}
+
+.hide_txt{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

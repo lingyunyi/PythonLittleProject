@@ -1,0 +1,143 @@
+.card {
+    border-radius: 0;
+}
+
+.col {
+
+}
+
+.container-lg {
+    max-width: 1284px;
+}
+
+a:hover {
+    font-weight: bold;
+    color: #19988b;
+    text-decoration: none;
+}
+
+
+.list-group{
+    border-radius: 0;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #F4F4F4;
+}
+
+.breadcrumb{
+    border-radius: 0;
+    background-color: white;
+    font-weight: 900;
+    color: #1FADF7;
+}
+
+.nav-pills .nav-link {
+	border-radius: 0;
+}
+
+
+.card-img, .card-img-top{
+    border-radius: 0;
+}
+/*
+    # 上边的为，重塑boostrap4的CSS样式
+
+    # 下边的为，font前端背景等，公共样式。
+
+*/
+.bodyBgGradient {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 977px;
+    background: -webkit-gradient(linear, 0 0, 0 0, from(rgba(72, 126, 183, 1)), to(rgba(72, 126, 183, 0)));
+    background: -webkit-linear-gradient(rgba(72, 126, 183, 1) 70%, rgba(72, 126, 183, 0) 100%);
+    background: -moz-linear-gradient(rgba(72, 126, 183, 1) 70%, rgba(72, 126, 183, 0) 100%);
+    background: -o-linear-gradient(rgba(72, 126, 183, 1) 70%, rgba(72, 126, 183, 0) 100%);
+    background: -ms-linear-gradient(rgba(72, 126, 183, 1) 70%, rgba(72, 126, 183, 0) 100%);
+    background: linear-gradient(rgba(72, 126, 183, 1) 70%, rgba(72, 126, 183, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff487eb7, endColorstr=#00487eb7);
+    z-index: -1;
+}
+
+
+.bodyBgImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(imgs_files/bodybg.png);
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.header .top {
+    position: relative;
+    z-index: 3;
+    height: 40px;
+    line-height: 40px;
+    background-color: #2f5175;
+    background: url(imgs_files/top_bgnew.png) repeat-x;
+    font-size: 12px;
+    color: #7490ac;
+    font-size: 12px;
+}
+
+
+.logoBox .logo {
+    position: absolute;
+    left: 0;
+    top: 48px;
+    height: 93px;
+    width: auto;
+
+}
+
+.logoBox .slogan {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 137px;
+    width: auto;
+
+}
+
+.logoBox {
+    height: 180px;
+    position: relative;
+    z-index: 2;
+}
+
+.logoBoxBottom {
+    height: 50px;
+    line-height: 50px;
+    background-image: url(imgs_files/navbg.png);
+    background-size: auto 50px;
+
+}
+
+
+.bottom_footer {
+    height: 160px;
+    background-image: url(imgs_files/footerbg.png);
+    background-color: #184778;
+}
+
+
+.margin_top_bottom {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.margin_top_bottom_20 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
