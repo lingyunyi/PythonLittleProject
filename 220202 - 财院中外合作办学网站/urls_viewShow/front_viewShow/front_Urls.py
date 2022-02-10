@@ -1,5 +1,6 @@
 from django.urls import path
 from urls_viewShow.front_viewShow.v_public import showHtml_vS
+from urls_viewShow.front_viewShow.v_public import frontShowAPI_vS
 
 
 urlpatterns = [
@@ -19,4 +20,20 @@ urlpatterns = [
     path(r"front/fr/student/", showHtml_vS.fr_sc_student),
     # 后台登入
     path(r"front/fr/login/", showHtml_vS.fr_sc_login),
+
+
+
+
+
+
+    # API————————————————————————————————————————
+    # 通知公告-等等-渲染API
+    path(r"front/fr/dynamic/contentShow/API/", frontShowAPI_vS.Fr_contentShow_API),
+    # 学生留言内容渲染API
+    path(r"front/fr/student/teWallShow/API/", frontShowAPI_vS.Fr_stWallShow_API),
+    # 教室留言内容渲染API
+    path(r"front/fr/teacher/teWallShow/API/", frontShowAPI_vS.Fr_teWallShow_API),
+
+
+
 ]

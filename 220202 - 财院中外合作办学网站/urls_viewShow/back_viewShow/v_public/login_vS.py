@@ -11,7 +11,7 @@ def login_check_Api(login_iphone, login_passwd, login_checkCode, login_type):
     # login_type["Ad","Te","St"]
     # 注册视图，注册成功返回相应数值，注册失败输出失败原因
     try:
-        sql = '''select * from accounttables where user_iphone = %s and user_passwd = %s and user_type = %s'''
+        sql = '''select * from account_tb where user_iphone = %s and user_passwd = %s and user_type = %s'''
         Get, T_F = SqlData_FuncO.search(sql, Public_Func.SubContent([login_iphone, login_passwd, login_type]))
         if T_F:
             return (None, True)
@@ -26,8 +26,9 @@ def register_check_Api(regis_iphone, regis_passwd, regis_checkCode, regis_type):
     # 注册视图，注册成功返回相应数值，注册失败输出失败原因
     # 判断账号是否存在，判断是否注册成功
     try:
-        sql = '''insert into AccountTables values (%s,%s,%s,%s,%s,%s)'''
-        Err, T_F = SqlData_FuncO.excute(sql, Public_Func.SubContent([None, regis_iphone, regis_passwd, regis_type, Public_Func.NowTime(), 0]))
+        sql = '''insert into account_tb values (%s,%s,%s,%s,%s,%s,%s)'''
+        Err, T_F = SqlData_FuncO.excute(sql, Public_Func.SubContent(
+            [None, regis_iphone, regis_passwd, regis_type, Public_Func.NowTime(), 0, None],not_sub=[4]))
         if T_F:
             return (None, True)
         # 我以将iphone设置成唯一索引，如果注册的账号不唯一，将引发1062数据库错误。
@@ -65,13 +66,15 @@ def login_vS(request):
                     if login_type == "Ad":
                         request.session[uuid4_str_Ad] = login_iphone
                         obj.set_cookie("uuid4_str_Ad", uuid4_str_Ad, 60 * 60 * 12)
+                        obj.set_cookie("login_type", "Ad", 60 * 60 * 12)
                     if login_type == "Te":
                         request.session[uuid4_str_Te] = login_iphone
                         obj.set_cookie("uuid4_str_Te", uuid4_str_Te, 60 * 60 * 12)
+                        obj.set_cookie("login_type", "Te", 60 * 60 * 12)
                     if login_type == "St":
                         request.session[uuid4_str_St] = login_iphone
                         obj.set_cookie("uuid4_str_St", uuid4_str_St, 60 * 60 * 12)
-                    Base_Setting.Common_Render["user_iphone"] = login_iphone
+                        obj.set_cookie("login_type", "St", 60 * 60 * 12)
                     return obj
                 if not T_F:
                     OOOOO["login_tip"] = "AnP_False"
@@ -95,5 +98,11 @@ def login_vS(request):
 
 
 def logout_anyone(request):
-    #所有用户退出时清空所有cookies和session
-    Public_Func.IsLogin_isClear(is_clear=True)
+    # 所有用户退出时清空所有cookies和session
+    login_type = request.COOKIES.get("login_type")
+    print(login_type)
+    Err,T_F = Public_Func.IsLogin_isClear(request,login_type,is_clear=True)
+    if T_F:
+        return Err
+    else:
+        return redirect("/")
