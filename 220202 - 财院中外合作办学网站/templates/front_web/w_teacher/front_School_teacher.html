@@ -52,7 +52,7 @@
             <a class="nav-link" href="/front/fr/overseas/">留学生招生</a>
             <a class="nav-link active" href="/front/fr/teacher/">教师留言</a>
             <a class="nav-link " href="/front/fr/student/">学生留言</a>
-            <a class="nav-link" href="/front/fr/login/">后台登录</a>
+            <a class="nav-link" href="/front/fr/login/">管理中心</a>
         </nav>
     </div>
     <div class="margin_top_bottom"></div>
@@ -67,18 +67,23 @@
                 <div class="container-lg">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                            <li class="page-item" onclick="sub_Pre_Next('Pre')" id="Pre">
+                                <a class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">F</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">E</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                            <li class="page-item" value="1" id="sub_one" onclick="AjaxSend(1)"><a
+                                    class="page-link">1</a></li>
+                            <li class="page-item" value="2" id="sub_two" onclick="AjaxSend(2)"><a
+                                    class="page-link">2</a></li>
+                            <li class="page-item" value="3" id="sub_thr" onclick="AjaxSend(3)"><a
+                                    class="page-link">3</a></li>
+                            <li class="page-item" value="4" id="sub_fou" onclick="AjaxSend(4)"><a
+                                    class="page-link">4</a></li>
+                            <li class="page-item" value="5" id="sub_fiv" onclick="AjaxSend(5)"><a
+                                    class="page-link">5</a></li>
+                            <li class="page-item" onclick="sub_Pre_Next('Next')">
+                                <a class="page-link" aria-label="Next" id="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -87,59 +92,7 @@
 
                 </div>
 
-                <div class="row row-cols-1 row-cols-md-4">
-                    <div class="col mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is another card with title and supporting text below. This
-                                    card has some additional content to make it slightly taller overall.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is another card with title and supporting text below. This
-                                    card has some additional content to make it slightly taller overall.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is another card with title and supporting text below. This
-                                    card has some additional content to make it slightly taller overall.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is another card with title and supporting text below. This
-                                    card has some additional content to make it slightly taller overall.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="../../../static/front_static/s_public/imgs_files/test.png" class="card-img-top"
-                            >
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is another card with title and supporting text below. This
-                                    card has some additional content to make it slightly taller overall.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row row-cols-1 row-cols-md-4" id="contentBox">
 
 
                 </div>
@@ -163,4 +116,123 @@
 <script src="../../../static/bs4_packages/js/bootstrap.bundle.min.js"></script>
 <script src="../../../static/bs4_packages/js/bootstrap.min.js"></script>
 </body>
+<script>
+
+    function sub_Pre_Next(type) {
+        var func = "AjaxSend"
+        var sub_one = '#sub_one '
+        var sub_two = '#sub_two '
+        var sub_thr = '#sub_thr '
+        var sub_fou = '#sub_fou '
+        var sub_fiv = '#sub_fiv '
+        var one = Number($(sub_one).attr("value"))
+        var two = Number($(sub_two).attr("value"))
+        var thr = Number($(sub_thr).attr("value"))
+        var fou = Number($(sub_fou).attr("value"))
+        var fiv = Number($(sub_fiv).attr("value"))
+        var init = 5
+        if (type == "Pre" && one >= 6) {
+            one = one - init
+            two = two - init
+            thr = thr - init
+            fou = fou - init
+            fiv = fiv - init
+            $(sub_one).attr("value", one)
+            $(sub_two).attr("value", two)
+            $(sub_thr).attr("value", thr)
+            $(sub_fou).attr("value", fou)
+            $(sub_fiv).attr("value", fiv)
+
+            $(sub_one + 'a').html(one)
+            $(sub_two + 'a').html(two)
+            $(sub_thr + 'a').html(thr)
+            $(sub_fou + 'a').html(fou)
+            $(sub_fiv + 'a').html(fiv)
+
+            $(sub_one).attr("onclick", ""+func+"(" + one + ")")
+            $(sub_two).attr("onclick", ""+func+"(" + two + ")")
+            $(sub_thr).attr("onclick", ""+func+"(" + thr + ")")
+            $(sub_fou).attr("onclick", ""+func+"(" + fou + ")")
+            $(sub_fiv).attr("onclick", ""+func+"(" + fiv + ")")
+        }
+        if (type == "Next") {
+            one = one + init
+            two = two + init
+            thr = thr + init
+            fou = fou + init
+            fiv = fiv + init
+            $(sub_one).attr("value", one)
+            $(sub_two).attr("value", two)
+            $(sub_thr).attr("value", thr)
+            $(sub_fou).attr("value", fou)
+            $(sub_fiv).attr("value", fiv)
+
+            $(sub_one + 'a').html(one)
+            $(sub_two + 'a').html(two)
+            $(sub_thr + 'a').html(thr)
+            $(sub_fou + 'a').html(fou)
+            $(sub_fiv + 'a').html(fiv)
+
+            $(sub_one).attr("onclick", ""+func+"(" + one + ")")
+            $(sub_two).attr("onclick", ""+func+"(" + two + ")")
+            $(sub_thr).attr("onclick", ""+func+"(" + thr + ")")
+            $(sub_fou).attr("onclick", ""+func+"(" + fou + ")")
+            $(sub_fiv).attr("onclick", ""+func+"(" + fiv + ")")
+        }
+    }
+
+    function AjaxSend(number) {
+
+
+        $.ajax({
+            url: '/front/fr/teacher/teWallShow/API/',
+            type: "POST",
+            data: {
+                "number": number,
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                var Box = $("#contentBox");
+                Box.empty();
+                if (GetData["show_data"] != "") {
+                    var BoxData = GetData["show_data"]
+                    for (i = 0; i < BoxData.length; i++) {
+                        var iphone = BoxData[i][1];
+                        var name = BoxData[i][2];
+                        var txt = BoxData[i][3];
+                        var img_url = '';
+                        if (BoxData[i][4]) {
+                            img_url = '<div style="text-align: center"><img src="../../../' + BoxData[i][4] + '" class="card-img-re"></div>'
+                        }
+                        var create_time = BoxData[i][5];
+                        var rowStr = '<div class="col mb-4"><div class="card"><div class="card-body">' + img_url + ' <h5 class="card-title">' + name +
+                            '</h5> <p class="card-text">' + txt +
+                            '</p> <p class="card-text"><small class="text-muted">' + create_time +
+                            '</small></p> </div> </div> </div>'
+                        ;
+                        Box.append(rowStr);
+                    }
+                    ;
+
+                }
+
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+
+    AjaxSend(1);
+</script>
 </html>

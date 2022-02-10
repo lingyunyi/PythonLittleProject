@@ -1,5 +1,7 @@
 import pymysql
 from unit_Tools import Base_Setting
+from dbutils.pooled_db import PooledDB
+
 
 class SqlData_Func_Class(object):
 
@@ -7,7 +9,8 @@ class SqlData_Func_Class(object):
         '''
             暂无初始化内容
         '''
-        pass
+        self.pool = PooledDB(pymysql, 5, host=Base_Setting.HOST_IP, user=Base_Setting.USER_NAME,
+                             password=Base_Setting.USER_PASSWD, database=Base_Setting.USE_DATABASE)
 
     def connect(self):
         '''
@@ -15,8 +18,7 @@ class SqlData_Func_Class(object):
         :return:
         '''
         try:
-            self.db = pymysql.connect(host=Base_Setting.HOST_IP, user=Base_Setting.USER_NAME,
-                                      password=Base_Setting.USER_PASSWD, database=Base_Setting.USE_DATABASE)
+            self.db = self.pool.connection()
             # 使用cursor游标，创建一个游标对象cursor
             self.cursor = self.db.cursor()
             return True
@@ -47,14 +49,14 @@ class SqlData_Func_Class(object):
             self.close()
             # 直接返回查询结果，返回的结果是一个元祖
             if results:
-                return (results,True)
+                return (results, True)
             else:
-                return (None,False)
+                return (None, False)
         except BaseException as e:
             print(e)
             # 如果发生错误则回滚
             self.close()
-            return (str(e),False)
+            return (str(e), False)
 
     def excutemany(self, sql, args=None, show=True):
         try:
@@ -68,11 +70,11 @@ class SqlData_Func_Class(object):
             self.db.commit()
             # 关闭数据库
             self.close()
-            return (None,True)
+            return (None, True)
         except BaseException as e:
             print(e)
             self.db.rollback()
-            return (str(e),False)
+            return (str(e), False)
 
     def excute(self, sql, args=None, show=True):
         try:
@@ -86,11 +88,11 @@ class SqlData_Func_Class(object):
             self.db.commit()
             # 关闭数据库
             self.close()
-            return (None,True)
+            return (None, True)
         except BaseException as e:
             print(e)
             self.db.rollback()
-            return (str(e),False)
+            return (str(e), False)
 
     def is_can(self):
         '''

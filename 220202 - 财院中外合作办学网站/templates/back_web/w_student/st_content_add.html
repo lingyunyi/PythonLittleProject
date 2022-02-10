@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学生后台 - 内容添加</title>
+    <link href="../../../static/bs3_packages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/datepicker3.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/styles.css" rel="stylesheet">
+    <link href="../../../static/back_static/s_public/back_public.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/back/st/infomation/"><span><b>学生</b></span>后台管理</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ uuid4_str_St }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/back/all/logut/"><span class="glyphicon glyphicon-plane"></span>（登出）</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href=""><span class="glyphicon glyphicon-floppy-save"></span>（备份）</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/back/all/logut/">
+                <button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>登出</b></button>
+            </a>
+        </div>
+    </form>
+    <ul class="nav menu" style="font-weight: bold;">
+        <ul class="nav menu" style="font-weight: bold;">
+            <li class=""><a href="/back/st/infomation/"><span class="glyphicon glyphicon-tree-deciduous"></span>个人信息 -
+                信息修改</a>
+            </li>
+            <li class="active"><a href="/back/st/teAstWall/"><span class="glyphicon glyphicon-tree-deciduous"></span>留言管理
+                -
+                内容管理</a>
+            </li>
+        </ul>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">编辑中心</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">内容添加中心 - 内容添加</h2>
+
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <div class="">
+                        <section id="input_group">
+                            <div class="form-group">
+                                <label for="content_title">留言（标题内容不宜过长）</label>
+                                <textarea class="form-control" rows="3" id="content_title" maxlength="100"></textarea>
+                            </div>
+                            <hr/>
+
+                            <div class="form-group">
+                                <label for="InputFile">上传图片</label>
+                                <input type="file" id="InputFile">
+                            </div>
+                            <hr/>
+                            <button type="submit" class="btn btn-default" onclick="return AjaxSend('input_group');"
+                                    id="confirm_button">
+                                发布
+                            </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../../static/bs3_packages/js/jquery-1.11.1.min.js"></script>
+<script src="../../../static/bs3_packages/js/bootstrap.min.js"></script>
+
+
+</body>
+<script>
+    function Cmd(id_name) {
+        var ipt = document.getElementById(id_name).getElementsByTagName("input"); //查找divbox这个div里的所有文本框
+        for (var i = 0; i < ipt.length; i++) { //循环
+            if (ipt[i].value.length == 0) { //如果其中一个文本框没有填写
+                alert("（OpqO 您还有内容未输入哦 OpqO）"); //弹出提示
+                ipt[i].focus(); //定位到没有填写的文本框
+                return false; //返回false
+            }
+        }
+        return true; //都已经填写，返回true
+    }
+
+
+    function AjaxSend(id_name) {
+        var res = $("#content_title").val()
+        if (res == "") {
+            alert("（OpqO 您还有内容未输入哦 OpqO）");
+            return false
+        }//弹出提示}}
+        var cover = new FormData();
+        var fileObj = document.getElementById('InputFile').files[0];
+        cover.append('InputFile', fileObj)
+        cover.append("content_title", $("#content_title").val())
+        console.log(cover)
+        $.ajax({
+            url: '/back/all/teAstWallAdd/API/',
+            type: "POST",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: cover,
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                // 登入成功
+                if (GetData["insert_result"] == "True") {
+                    alert("（OpqO 添加成功 OpqO）")
+                    location.reload()
+                    location.href = "/back/st/teAstWall/"
+                } else if (GetData["insert_result"] == "False") {
+                    alert("（OpqO 添加失败 OpqO）")
+                    location.reload()
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+</script>
+</html>

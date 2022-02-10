@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员后台 - 消息留言墙</title>
+    <link href="../../../static/bs3_packages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/datepicker3.css" rel="stylesheet">
+    <link href="../../../static/bs3_packages/css/styles.css" rel="stylesheet">
+    <link href="../../../static/back_static/s_public/back_public.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/back/ad/infomation/"><span><b>管理员</b></span>后台管理</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user">（{{ uuid4_str_Ad }}）</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/back/all/logut/"><span class="glyphicon glyphicon-plane"></span>（登出）</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href=""><span class="glyphicon glyphicon-floppy-save"></span>（备份）</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <a href="/back/all/logut/">
+                <button class="btn btn-default" style="width: 100%;height: 100%;" disabled><b>登出</b></button>
+            </a>
+        </div>
+    </form>
+    <ul class="nav menu" style="font-weight: bold;">
+        <li class=""><a href="/back/ad/infomation/"><span class="glyphicon glyphicon-tree-deciduous"></span>个人信息 - 信息修改</a>
+        </li>
+        <li class=""><a href="/back/ad/notice/"><span class="glyphicon glyphicon-tree-deciduous"></span>通知公告 - 内容管理</a>
+        </li>
+        <li class=""><a href="/back/ad/news/"><span class="glyphicon glyphicon-tree-deciduous"></span>新闻动态 - 内容管理</a>
+        </li>
+        <li class=""><a href="/back/ad/download/"><span class="glyphicon glyphicon-tree-deciduous"></span>下载中心 -
+            内容管理</a></li>
+        <li class=""><a href="/back/ad/law/"><span class="glyphicon glyphicon-tree-deciduous"></span>法规制度 - 内容管理</a>
+        </li>
+        <li class="active"><a href="/back/ad/teAstWall/"><span class="glyphicon glyphicon-tree-deciduous"></span>留言内容 -
+            内容管理</a></li>
+        <li role="presentation" class="divider"></li>
+    </ul>
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">编辑中心</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">留言内容 - 内容管理</h2>
+
+        </div>
+    </div><!--/.row-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="form-group has-error">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="（OvO   全内容查询 - 实时同步   OvO）" id="search"
+                                   oninput="AjaxSend();" style="margin-top: 5px;">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="add_button form-control" id="content_add"
+                                   value="无法使用" disabled
+                                   style="margin-top: 5px;">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="text-align: center">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">序号</th>
+                                <th style="text-align: center">手机</th>
+                                <th style="text-align: center">名字</th>
+                                <th style="text-align: center">内容</th>
+                                <th style="text-align: center">图片</th>
+                                <th style="text-align: center">时间</th>
+                                <th style="text-align: center">职位</th>
+                                <th style="text-align: center">删除</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div><!-- /.row -->
+
+</div><!--/.main-->
+
+<script src="../../../static/bs3_packages/js/jquery-1.11.1.min.js"></script>
+<script src="../../../static/bs3_packages/js/bootstrap.min.js"></script>
+<script>
+
+    AjaxSend();
+
+
+    function Delete_ID(id) {
+        var r = confirm("（OvO 是否删除，请确认。 OvO）")
+        if (r == false) {
+            return false
+        }
+        ;
+        $.ajax({
+            url: '/back/all/teAstWallDelete/API/',
+            type: "POST",
+            data: {
+                "deleteID": id,
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                // 登入成功
+                if (GetData["delete_result"] == "True") {
+                    alert("（OvO 内容删除成功 OvO）")
+                    location.reload()
+                } else if (GetData["delete_result"] == "False") {
+                    alert("（OvO 内容删除失败 OvO）")
+                }
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    }
+
+    function AjaxSend() {
+        var X = $("#search").val()
+        if (X == null) {
+            var search_content = ""
+        } else {
+            var search_content = $("#search").val()
+        }
+        $.ajax({
+            url: '/back/ad/teAstWallShow/API/',
+            type: "POST",
+            data: {
+                "search_content": search_content,
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                // 登入成功
+                // 失败
+                if (jsonStr != "") {
+                    var GetData = JSON.parse(jsonStr)
+                    console.log(GetData)
+                    var jsonList = GetData["show_data"]
+                    console.log(jsonList)
+                    var tab = $("#tbody");
+                    tab.empty();
+                    for (i = 0; i < jsonList.length; i++) {
+                        var id = jsonList[i][0];
+                        var user_iphone = jsonList[i][1];
+                        var user_name = jsonList[i][2];
+                        var content_txt = jsonList[i][3].slice(0, 20);
+                        var content_txt_titie = jsonList[i][3];
+                        var img_url = jsonList[i][4].slice(58,);
+                        var create_time = jsonList[i][5];
+                        var te_a_st = jsonList[i][6];
+                        if (te_a_st == "Te") {
+                            te_a_st = "教师"
+                        }
+                        ;
+                        if (te_a_st == "St") {
+                            te_a_st = "学生"
+                        }
+                        ;
+                        var rowStr = "<tr title=" + content_txt_titie + "><td>" + id + "</td>" + "<td>" + user_iphone + "</td>" + "<td>" + user_name +
+                            "</td>" + "<td>" + content_txt + "</td>" + "<td><a target='_blank' href='" + jsonList[i][4] + "'>" + img_url + "</a></td>" +
+                            "<td>" + create_time + "</td>" + "<td>" + te_a_st + "</td>" +
+                            '<td><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"style="color: red" onclick="Delete_ID(' + id + ');"></span></td>' + "</tr>";
+                        console.log(rowStr);
+                        tab.append(rowStr);
+                    }
+                    ;
+                }
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+    };
+</script>
+
+</body>
+
+</html>

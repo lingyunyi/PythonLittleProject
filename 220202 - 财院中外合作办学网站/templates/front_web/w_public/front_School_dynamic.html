@@ -53,7 +53,7 @@
             <a class="nav-link" href="/front/fr/overseas/">留学生招生</a>
             <a class="nav-link" href="/front/fr/teacher/">教师留言</a>
             <a class="nav-link" href="/front/fr/student/">学生留言</a>
-            <a class="nav-link" href="/front/fr/login/">后台登录</a>
+            <a class="nav-link" href="/front/fr/login/">管理中心</a>
         </nav>
     </div>
     <div class="margin_top_bottom"></div>
@@ -115,14 +115,14 @@
                         <div style="background-color: #F4F4F4;height: 100%">
                             <div class="list-group" id="list-tab" role="tablist">
                                 <a class="list-group-item list-group-item-action active" id="list-one-list"
-                                   data-toggle="list" href="#list-one" role="tab" aria-controls="home">通知公告</a>
+                                   data-toggle="list" href="#list-one" role="tab" aria-controls="home" onclick="no_AjaxSend(1)">通知公告</a>
                                 <a class="list-group-item list-group-item-action" id="list-two-list" data-toggle="list"
-                                   href="#list-two" role="tab" aria-controls="profile">新闻动态</a>
+                                   href="#list-two" role="tab" aria-controls="profile" onclick="ne_AjaxSend(1)">新闻动态</a>
                                 <a class="list-group-item list-group-item-action" id="list-three-list"
                                    data-toggle="list"
-                                   href="#list-three" role="tab" aria-controls="messages">下载中心</a>
+                                   href="#list-three" role="tab" aria-controls="messages" onclick="do_AjaxSend(1)">下载中心</a>
                                 <a class="list-group-item list-group-item-action" id="list-four-list" data-toggle="list"
-                                   href="#list-four" role="tab" aria-controls="settings">法规制度</a>
+                                   href="#list-four" role="tab" aria-controls="settings" onclick="la_AjaxSend(1)">法规制度</a>
                             </div>
                         </div>
 
@@ -143,31 +143,41 @@
                                         </nav>
 
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center no_bg"
-                                                style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
-                                                <a href="x" class="w-75 hide_txt">A
-                                                    listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist
-                                                    item</a>
-                                                <span class="badge badge-primary badge-pill">14</span>
-                                            </li>
+                                        <ul class="list-group" id="noticeBox">
+
                                         </ul>
 
                                         <div class="container-lg">
-                                            <nav aria-label="Page navigation example">
+                                            <nav aria-label="Page navigation example" style="margin-top: 60px;">
                                                 <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                    <li class="page-item" onclick="sub_Pre_Next('Pre','notice')"
+                                                        id="Pre">
+                                                        <a class="page-link" aria-label="Previous">
                                                             <span aria-hidden="true">&laquo;</span>
                                                         </a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">F</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">E</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
+                                                    <li class="page-item" value="1" id="no_sub_one"
+                                                        onclick="no_AjaxSend(1)">
+                                                        <a
+                                                                class="page-link">1</a></li>
+                                                    <li class="page-item" value="2" id="no_sub_two"
+                                                        onclick="no_AjaxSend(2)">
+                                                        <a
+                                                                class="page-link">2</a></li>
+                                                    <li class="page-item" value="3" id="no_sub_thr"
+                                                        onclick="no_AjaxSend(3)">
+                                                        <a
+                                                                class="page-link">3</a></li>
+                                                    <li class="page-item" value="4" id="no_sub_fou"
+                                                        onclick="no_AjaxSend(4)">
+                                                        <a
+                                                                class="page-link">4</a></li>
+                                                    <li class="page-item" value="5" id="no_sub_fiv"
+                                                        onclick="no_AjaxSend(5)">
+                                                        <a
+                                                                class="page-link">5</a></li>
+                                                    <li class="page-item" onclick="sub_Pre_Next('Next','notice')">
+                                                        <a class="page-link" aria-label="Next" id="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                         </a>
                                                     </li>
@@ -192,31 +202,40 @@
                                         </nav>
 
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center no_bg"
-                                                style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
-                                                <a href="x" class="w-75 hide_txt">A
-                                                    listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist
-                                                    item</a>
-                                                <span class="badge badge-primary badge-pill">14</span>
-                                            </li>
+                                        <ul class="list-group" id="newsBox">
+
                                         </ul>
 
                                         <div class="container-lg">
-                                            <nav aria-label="Page navigation example">
+                                            <nav aria-label="Page navigation example" style="margin-top: 60px;">
                                                 <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                    <li class="page-item" onclick="sub_Pre_Next('Pre','news')" id="Pre">
+                                                        <a class="page-link" aria-label="Previous">
                                                             <span aria-hidden="true">&laquo;</span>
                                                         </a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">F</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">E</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
+                                                    <li class="page-item" value="1" id="ne_sub_one"
+                                                        onclick="ne_AjaxSend(1)">
+                                                        <a
+                                                                class="page-link">1</a></li>
+                                                    <li class="page-item" value="2" id="ne_sub_two"
+                                                        onclick="ne_AjaxSend(2)">
+                                                        <a
+                                                                class="page-link">2</a></li>
+                                                    <li class="page-item" value="3" id="ne_sub_thr"
+                                                        onclick="ne_AjaxSend(3)">
+                                                        <a
+                                                                class="page-link">3</a></li>
+                                                    <li class="page-item" value="4" id="ne_sub_fou"
+                                                        onclick="ne_AjaxSend(4)">
+                                                        <a
+                                                                class="page-link">4</a></li>
+                                                    <li class="page-item" value="5" id="ne_sub_fiv"
+                                                        onclick="ne_AjaxSend(5)">
+                                                        <a
+                                                                class="page-link">5</a></li>
+                                                    <li class="page-item" onclick="sub_Pre_Next('Next','news')">
+                                                        <a class="page-link" aria-label="Next" id="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                         </a>
                                                     </li>
@@ -243,31 +262,41 @@
                                         </nav>
 
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center no_bg"
-                                                style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
-                                                <a href="x" class="w-75 hide_txt">A
-                                                    listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist
-                                                    item</a>
-                                                <span class="badge badge-primary badge-pill">14</span>
-                                            </li>
+                                        <ul class="list-group" id="downloadBox">
+
                                         </ul>
 
                                         <div class="container-lg">
-                                            <nav aria-label="Page navigation example">
+                                            <nav aria-label="Page navigation example" style="margin-top: 60px;">
                                                 <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                    <li class="page-item" onclick="sub_Pre_Next('Pre','download')"
+                                                        id="Pre">
+                                                        <a class="page-link" aria-label="Previous">
                                                             <span aria-hidden="true">&laquo;</span>
                                                         </a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">F</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">E</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
+                                                    <li class="page-item" value="1" id="do_sub_one"
+                                                        onclick="do_AjaxSend(1)">
+                                                        <a
+                                                                class="page-link">1</a></li>
+                                                    <li class="page-item" value="2" id="do_sub_two"
+                                                        onclick="do_AjaxSend(2)">
+                                                        <a
+                                                                class="page-link">2</a></li>
+                                                    <li class="page-item" value="3" id="do_sub_thr"
+                                                        onclick="do_AjaxSend(3)">
+                                                        <a
+                                                                class="page-link">3</a></li>
+                                                    <li class="page-item" value="4" id="do_sub_fou"
+                                                        onclick="do_AjaxSend(4)">
+                                                        <a
+                                                                class="page-link">4</a></li>
+                                                    <li class="page-item" value="5" id="do_sub_fiv"
+                                                        onclick="do_AjaxSend(5)">
+                                                        <a
+                                                                class="page-link">5</a></li>
+                                                    <li class="page-item" onclick="sub_Pre_Next('Next','download')">
+                                                        <a class="page-link" aria-label="Next" id="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                         </a>
                                                     </li>
@@ -294,31 +323,40 @@
                                         </nav>
 
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center no_bg"
-                                                style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
-                                                <a href="x" class="w-75 hide_txt">A
-                                                    listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist
-                                                    item</a>
-                                                <span class="badge badge-primary badge-pill">14</span>
-                                            </li>
+                                        <ul class="list-group" id="lawBox">
+
                                         </ul>
 
                                         <div class="container-lg">
-                                            <nav aria-label="Page navigation example">
+                                            <nav aria-label="Page navigation example" style="margin-top: 60px;">
                                                 <ul class="pagination justify-content-center">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                    <li class="page-item" onclick="sub_Pre_Next('Pre','law')" id="Pre">
+                                                        <a class="page-link" aria-label="Previous">
                                                             <span aria-hidden="true">&laquo;</span>
                                                         </a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">F</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">E</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
+                                                    <li class="page-item" value="1" id="la_sub_one"
+                                                        onclick="la_AjaxSend(1)">
+                                                        <a
+                                                                class="page-link">1</a></li>
+                                                    <li class="page-item" value="2" id="la_sub_two"
+                                                        onclick="la_AjaxSend(2)">
+                                                        <a
+                                                                class="page-link">2</a></li>
+                                                    <li class="page-item" value="3" id="la_sub_thr"
+                                                        onclick="la_AjaxSend(3)">
+                                                        <a
+                                                                class="page-link">3</a></li>
+                                                    <li class="page-item" value="4" id="la_sub_fou"
+                                                        onclick="la_AjaxSend(4)">
+                                                        <a
+                                                                class="page-link">4</a></li>
+                                                    <li class="page-item" value="5" id="la_sub_fiv"
+                                                        onclick="la_AjaxSend(5)">
+                                                        <a
+                                                                class="page-link">5</a></li>
+                                                    <li class="page-item" onclick="sub_Pre_Next('Next','law')">
+                                                        <a class="page-link" aria-label="Next" id="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                         </a>
                                                     </li>
@@ -352,6 +390,283 @@
 <script src="../../../static/bs4_packages/js/jquery-3.5.1.min.js"></script>
 <script src="../../../static/bs4_packages/js/bootstrap.bundle.min.js"></script>
 <script src="../../../static/bs4_packages/js/bootstrap.min.js"></script>
+
+<script>
+
+    function sub_Pre_Next(type, content) {
+        if (content == "notice") {
+            var func = "no_AjaxSend"
+            var sub_one = '#no_sub_one '
+            var sub_two = '#no_sub_two '
+            var sub_thr = '#no_sub_thr '
+            var sub_fou = '#no_sub_fou '
+            var sub_fiv = '#no_sub_fiv '
+        }
+        if (content == "news") {
+            var func = "ne_AjaxSend"
+            var sub_one = '#ne_sub_one '
+            var sub_two = '#ne_sub_two '
+            var sub_thr = '#ne_sub_thr '
+            var sub_fou = '#ne_sub_fou '
+            var sub_fiv = '#ne_sub_fiv '
+        }
+
+        if (content == "download") {
+            var func = "do_AjaxSend"
+            var sub_one = '#do_sub_one '
+            var sub_two = '#do_sub_two '
+            var sub_thr = '#do_sub_thr '
+            var sub_fou = '#do_sub_fou '
+            var sub_fiv = '#do_sub_fiv '
+        }
+
+        if (content == "law") {
+            var func = "la_AjaxSend"
+            var sub_one = '#la_sub_one '
+            var sub_two = '#la_sub_two '
+            var sub_thr = '#la_sub_thr '
+            var sub_fou = '#la_sub_fou '
+            var sub_fiv = '#la_sub_fiv '
+        }
+
+
+        var one = Number($(sub_one).attr("value"))
+        var two = Number($(sub_two).attr("value"))
+        var thr = Number($(sub_thr).attr("value"))
+        var fou = Number($(sub_fou).attr("value"))
+        var fiv = Number($(sub_fiv).attr("value"))
+        var init = 5
+        if (type == "Pre" && one >= 6) {
+            one = one - init
+            two = two - init
+            thr = thr - init
+            fou = fou - init
+            fiv = fiv - init
+            $(sub_one).attr("value", one)
+            $(sub_two).attr("value", two)
+            $(sub_thr).attr("value", thr)
+            $(sub_fou).attr("value", fou)
+            $(sub_fiv).attr("value", fiv)
+
+            $(sub_one + 'a').html(one)
+            $(sub_two + 'a').html(two)
+            $(sub_thr + 'a').html(thr)
+            $(sub_fou + 'a').html(fou)
+            $(sub_fiv + 'a').html(fiv)
+
+            $(sub_one).attr("onclick", "" + func + "(" + one + ")")
+            $(sub_two).attr("onclick", "" + func + "(" + two + ")")
+            $(sub_thr).attr("onclick", "" + func + "(" + thr + ")")
+            $(sub_fou).attr("onclick", "" + func + "(" + fou + ")")
+            $(sub_fiv).attr("onclick", "" + func + "(" + fiv + ")")
+        }
+        if (type == "Next") {
+            one = one + init
+            two = two + init
+            thr = thr + init
+            fou = fou + init
+            fiv = fiv + init
+            $(sub_one).attr("value", one)
+            $(sub_two).attr("value", two)
+            $(sub_thr).attr("value", thr)
+            $(sub_fou).attr("value", fou)
+            $(sub_fiv).attr("value", fiv)
+
+            $(sub_one + 'a').html(one)
+            $(sub_two + 'a').html(two)
+            $(sub_thr + 'a').html(thr)
+            $(sub_fou + 'a').html(fou)
+            $(sub_fiv + 'a').html(fiv)
+
+            $(sub_one).attr("onclick", "" + func + "(" + one + ")")
+            $(sub_two).attr("onclick", "" + func + "(" + two + ")")
+            $(sub_thr).attr("onclick", "" + func + "(" + thr + ")")
+            $(sub_fou).attr("onclick", "" + func + "(" + fou + ")")
+            $(sub_fiv).attr("onclick", "" + func + "(" + fiv + ")")
+        }
+    }
+
+    function no_AjaxSend(number, content_type = "notice", Boxname = "#noticeBox") {
+
+        $.ajax({
+            url: '/front/fr/dynamic/contentShow/API/',
+            type: "POST",
+            data: {
+                "search_content": "",
+                "number": number,
+                "content_type": content_type
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                var Box = $(Boxname);
+                Box.empty();
+                if (GetData["show_data"] != "") {
+                    var BoxData = GetData["show_data"]
+                    for (i = 0; i < BoxData.length; i++) {
+                        var content_title = BoxData[i][3]
+                        var wx_url = BoxData[i][4]
+                        var create_time = BoxData[i][5]
+                        var rowStr = '<li class="list-group-item d-flex justify-content-between align-items-center no_bg"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis"> ' +
+                            '<a target="_blank" href=' + wx_url + ' class="w-75 hide_txt">' + content_title + '</a><span class="badge badge-primary badge-pill">' + create_time + '</span></li>'
+                        ;
+                        Box.append(rowStr);
+                    }
+                    ;
+
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+    function ne_AjaxSend(number, content_type = "news", Boxname = "#newsBox") {
+
+        $.ajax({
+            url: '/front/fr/dynamic/contentShow/API/',
+            type: "POST",
+            data: {
+                "search_content": "",
+                "number": number,
+                "content_type": content_type
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                var Box = $(Boxname);
+                Box.empty();
+                if (GetData["show_data"] != "") {
+                    var BoxData = GetData["show_data"]
+                    for (i = 0; i < BoxData.length; i++) {
+                        var content_title = BoxData[i][3]
+                        var wx_url = BoxData[i][4]
+                        var create_time = BoxData[i][5]
+                        var rowStr = '<li class="list-group-item d-flex justify-content-between align-items-center no_bg"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis"> ' +
+                            '<a target="_blank" href=' + wx_url + ' class="w-75 hide_txt">' + content_title + '</a><span class="badge badge-primary badge-pill">' + create_time + '</span></li>'
+                        ;
+                        Box.append(rowStr);
+                    }
+                    ;
+
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+    function do_AjaxSend(number, content_type = "download", Boxname = "#downloadBox") {
+
+        $.ajax({
+            url: '/front/fr/dynamic/contentShow/API/',
+            type: "POST",
+            data: {
+                "search_content": "",
+                "number": number,
+                "content_type": content_type
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                var Box = $(Boxname);
+                Box.empty();
+                if (GetData["show_data"] != "") {
+                    var BoxData = GetData["show_data"]
+                    for (i = 0; i < BoxData.length; i++) {
+                        var content_title = BoxData[i][3]
+                        var wx_url = BoxData[i][4]
+                        var create_time = BoxData[i][5]
+                        var rowStr = '<li class="list-group-item d-flex justify-content-between align-items-center no_bg"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis"> ' +
+                            '<a target="_blank" href=' + wx_url + ' class="w-75 hide_txt">' + content_title + '</a><span class="badge badge-primary badge-pill">' + create_time + '</span></li>'
+                        ;
+                        Box.append(rowStr);
+                    }
+                    ;
+
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+    function la_AjaxSend(number, content_type = "law", Boxname = "#lawBox") {
+
+        $.ajax({
+            url: '/front/fr/dynamic/contentShow/API/',
+            type: "POST",
+            data: {
+                "search_content": "",
+                "number": number,
+                "content_type": content_type
+            },
+            // 设置超时的时间XXs
+            timeout: 30000,
+            success: function (jsonStr) {
+                //当服务端处理完成后，返回数据时，该函数自动调用
+                // data代表服务器给我们返回的值
+                // 可以使用 JavaScript进行html的内容修改展示内容，或者刷新界面
+                var GetData = JSON.parse(jsonStr)
+                console.log(GetData)
+                var Box = $(Boxname);
+                Box.empty();
+                if (GetData["show_data"] != "") {
+                    var BoxData = GetData["show_data"]
+                    for (i = 0; i < BoxData.length; i++) {
+                        var content_title = BoxData[i][3]
+                        var wx_url = BoxData[i][4]
+                        var create_time = BoxData[i][5]
+                        var rowStr = '<li class="list-group-item d-flex justify-content-between align-items-center no_bg"style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis"> ' +
+                            '<a target="_blank" href=' + wx_url + ' class="w-75 hide_txt">' + content_title + '</a><span class="badge badge-primary badge-pill">' + create_time + '</span></li>'
+                        ;
+                        Box.append(rowStr);
+                    }
+                    ;
+
+                }
+
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                console.log("error");
+            }
+        })
+
+    }
+
+    no_AjaxSend(1)
+
+</script>
+
 
 </body>
 </html>

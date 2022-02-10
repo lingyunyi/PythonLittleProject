@@ -29,11 +29,15 @@ def NowTime(get_times=False):
         return str(time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
-def SubContent(args_list):
+def SubContent(args_list,not_sub=[]):
     #替换传入列表的所有内容的特殊字符
     res = re.compile("[^\\u4e00-\\u9fa5^a-z^A-Z^0-9]")
     sub_list = []
-    for check_arg in args_list:
+    for i,check_arg in enumerate(args_list):
+        if not_sub:
+            if i in not_sub:
+                sub_list.append(check_arg)
+                continue
         if check_arg in [None,False,True]:
             sub_list.append(check_arg)
         else:
@@ -45,13 +49,14 @@ def SubContent(args_list):
 def IsLogin_isClear(request,login_type,is_clear=False):
     #检查是否登入成功，为了方便直接集成在公共阐述中。
     try:
-        response = HttpResponse("clear COOKIES")
+        response = redirect("/back/index/")
         if is_clear:
             request.session.flush()
             if login_type == "Ad":response.delete_cookie('uuid4_str_Ad')
             if login_type == "Te":response.delete_cookie('uuid4_str_Te')
             if login_type == "St":response.delete_cookie('uuid4_str_St')
-            return (None,True)
+            response.delete_cookie('login_type')
+            return (response,True)
         else:
             if login_type == "Ad":uuid4_str = request.COOKIES.get("uuid4_str_Ad")
             if login_type == "Te":uuid4_str = request.COOKIES.get("uuid4_str_Te")
