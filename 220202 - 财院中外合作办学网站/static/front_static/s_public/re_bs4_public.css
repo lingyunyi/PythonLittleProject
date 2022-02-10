@@ -40,6 +40,13 @@ a:hover {
 
 .card-img, .card-img-top{
     border-radius: 0;
+
+}
+.card-img-re{
+    border-radius: 0;
+    padding: 16px;
+    width: 75%;
+    max-width: 100%;
 }
 /*
     # 上边的为，重塑boostrap4的CSS样式

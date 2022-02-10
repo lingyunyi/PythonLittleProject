@@ -1,0 +1,37 @@
+#content_add {
+    background-color: #3e898d;
+    border-color: #8ad919;
+    color: white;
+    font-weight: 900;
+    font-size: 15px;
+    text-align: center;
+}
+
+.panel-heading {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.025em;
+    height: 95px;
+    line-height: 100px;
+    vertical-align: center;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
+    color: #19988b;
+    text-decoration: none;
+}
+
+#confirm_button {
+    background-color: #2b875c;
+    border-color: #8ad919;
+    font-weight: 700;
+    opacity: 0.7;
+    width: 100%;
+    color: white;
+}
